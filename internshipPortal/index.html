@@ -1,0 +1,1677 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BIAL Internships · Enhanced</title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'] },
+          colors: {
+            bial: {
+              teal: '#0D9488',
+              'teal-dark': '#0F766E',
+              'teal-light': '#14B8A6',
+              red: '#DC2626',
+              'red-dark': '#B91C1C',
+              amber: '#D97706',
+              'amber-dark': '#B45309',
+              'amber-light': '#F59E0B',
+              slate: '#1E293B',
+            }
+          },
+          animation: {
+            float: 'float 6s ease-in-out infinite',
+            'float-slow': 'float 9s ease-in-out infinite',
+            'slide-up': 'slideUp 0.5s ease-out backwards',
+            'fade-in': 'fadeIn 0.3s ease-out',
+            'scale-in': 'scaleIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) backwards',
+            'gradient-shift': 'gradientShift 8s ease infinite',
+          },
+          keyframes: {
+            float: { '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' }, '50%': { transform: 'translateY(-14px) rotate(3deg)' } },
+            slideUp: { '0%': { transform: 'translateY(24px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
+            fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+            scaleIn: { '0%': { transform: 'scale(0.92)', opacity: '0' }, '100%': { transform: 'scale(1)', opacity: '1' } },
+            gradientShift: { '0%, 100%': { backgroundPosition: '0% 50%' }, '50%': { backgroundPosition: '100% 50%' } }
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+    * {
+      font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+    }
+    body {
+      transition: background-color 0.3s ease, color 0.3s ease;
+      letter-spacing: -0.01em;
+    }
+    .dark {
+      background-color: #0f172a;
+      color: #e2e8f0;
+    }
+    .dark body {
+      background-color: #0f172a;
+      color: #e2e8f0;
+    }
+    .stat-card {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
+    }
+    .dark .stat-card:hover {
+      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.5);
+    }
+    .nav-link {
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(135deg, #0d9488, #dc2626);
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+    }
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 100%;
+    }
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .dark select {
+      background-color: #1e293b;
+      color: #e2e8f0;
+    }
+    .dark select option {
+      background-color: #1e293b;
+      color: #e2e8f0;
+    }
+    .dark input,
+    .dark textarea {
+      background-color: #1e293b;
+      color: #e2e8f0;
+      border-color: #334155;
+    }
+    .dark input::placeholder,
+    .dark textarea::placeholder {
+      color: #64748b;
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #0d9488, #dc2626, #d97706);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: gradientShift 4s ease infinite;
+    }
+    .glow-btn {
+      position: relative;
+      overflow: hidden;
+    }
+    .glow-btn::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: inherit;
+      background: linear-gradient(135deg, #0d9488, #d97706);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      z-index: -1;
+      filter: blur(14px);
+    }
+    .glow-btn:hover::before {
+      opacity: 0.55;
+    }
+    .glow-btn:active {
+      transform: scale(0.97);
+    }
+    .card-hover {
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 48px -16px rgba(13, 148, 136, 0.25);
+      border-color: rgba(13, 148, 136, 0.4);
+    }
+    .dark .card-hover:hover {
+      box-shadow: 0 24px 48px -16px rgba(13, 148, 136, 0.35);
+    }
+    .pulse-dot {
+      position: relative;
+    }
+    .pulse-dot::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 9999px;
+      background: inherit;
+      animation: ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+    @keyframes ping {
+      75%,
+      100% {
+        transform: scale(2.4);
+        opacity: 0;
+      }
+    }
+    .avatar-ring {
+      background: conic-gradient(from 180deg, #0d9488, #d97706, #dc2626, #0d9488);
+      padding: 3px;
+      border-radius: 1rem;
+    }
+    .modal-backdrop {
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .clickable-name {
+      cursor: pointer;
+      text-decoration-color: transparent;
+      text-underline-offset: 3px;
+      transition: all 0.2s ease;
+    }
+    .clickable-name:hover {
+      text-decoration-line: underline;
+      text-decoration-color: currentColor;
+      color: #0d9488;
+    }
+    .dark .clickable-name:hover {
+      color: #14b8a6;
+    }
+    .segmented {
+      position: relative;
+      display: inline-flex;
+      padding: 4px;
+      border-radius: 0.9rem;
+    }
+    .segmented .thumb {
+      position: absolute;
+      top: 4px;
+      bottom: 4px;
+      border-radius: 0.7rem;
+      transition: left 0.3s cubic-bezier(0.65, 0, 0.35, 1), width 0.3s cubic-bezier(0.65, 0, 0.35, 1);
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+    }
+    .dark .segmented .thumb {
+      background: linear-gradient(135deg, #ffffff, #e2e8f0);
+    }
+    ::selection {
+      background: rgba(13, 148, 136, 0.25);
+    }
+    .file-input-wrapper {
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+    }
+    .file-input-wrapper input[type=file] {
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+  <div id="app"></div>
+  <script>
+    // ============================================================
+    //  ENHANCED BIAL INTERNSHIP PORTAL
+    //  - Admin dashboard stats are clickable (linked to pages)
+    //  - Applicant name click → detailed profile modal (with resume download)
+    //  - Application modal includes file upload (resume) stored as base64
+    //  - Settings: Shows CV files from applications + Export to Excel
+    //  - AUTO-CONVERT: When admin sets status to "selected", student becomes intern
+    // ============================================================
+
+    const ADMIN_EMAIL = 'admin@bial.aero';
+    const ADMIN_PASSWORD = 'admin123';
+
+    const DEPARTMENTS = [
+      'Airport Operations', 'Engineering & Maintenance', 'IT & Digital',
+      'Finance', 'Human Resources', 'Commercial & Retail', 'Safety & Security', 'Sustainability'
+    ];
+
+    const STORAGE_KEYS = {
+      users: 'bial_v11_users',
+      internships: 'bial_v11_internships',
+      applications: 'bial_v11_applications',
+      activeInterns: 'bial_v11_active_interns',
+      session: 'bial_v11_session',
+      theme: 'bial_v11_theme',
+      googleFormUrl: 'bial_v11_google_form_url',
+      formSubmissions: 'bial_v11_form_submissions'
+    };
+
+    const db = {
+      get(k) { try { return JSON.parse(localStorage.getItem(k)) || []; } catch { return []; } },
+      set(k, v) { localStorage.setItem(k, JSON.stringify(v)); },
+      getUsers() { return db.get(STORAGE_KEYS.users); },
+      saveUsers(u) { db.set(STORAGE_KEYS.users, u); },
+      getInternships() { return db.get(STORAGE_KEYS.internships); },
+      saveInternships(l) { db.set(STORAGE_KEYS.internships, l); },
+      getApplications() { return db.get(STORAGE_KEYS.applications); },
+      saveApplications(l) { db.set(STORAGE_KEYS.applications, l); },
+      getActiveInterns() { return db.get(STORAGE_KEYS.activeInterns); },
+      saveActiveInterns(l) { db.set(STORAGE_KEYS.activeInterns, l); },
+      getSession() { try { return JSON.parse(localStorage.getItem(STORAGE_KEYS.session)); } catch { return null; } },
+      setSession(s) { localStorage.setItem(STORAGE_KEYS.session, JSON.stringify(s)); },
+      clearSession() { localStorage.removeItem(STORAGE_KEYS.session); },
+      getTheme() { return localStorage.getItem(STORAGE_KEYS.theme) || 'light'; },
+      setTheme(t) { localStorage.setItem(STORAGE_KEYS.theme, t); },
+      getGoogleFormUrl() { return localStorage.getItem(STORAGE_KEYS.googleFormUrl) || ''; },
+      setGoogleFormUrl(url) { localStorage.setItem(STORAGE_KEYS.googleFormUrl, url); },
+      getFormSubmissions() { return db.get(STORAGE_KEYS.formSubmissions); },
+      saveFormSubmissions(s) { db.set(STORAGE_KEYS.formSubmissions, s); }
+    };
+
+    function simpleHash(s) { let h = 0; for (let i = 0; i < s.length; i++) { h = (h << 5) - h + s.charCodeAt(i);
+        h |= 0; } return 'h_' + h.toString(36); }
+
+    function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 10); }
+
+    function fmtDate(d) { return new Date(d).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }); }
+
+    function daysFromNow(n) { const d = new Date();
+      d.setDate(d.getDate() + n); return d.toISOString().slice(0, 10); }
+
+    const STYLES = {
+      status: {
+        pending: 'bg-amber-100 text-amber-800 border-amber-200 dark:bg-amber-900/30 dark:text-amber-300 dark:border-amber-800',
+        shortlisted: 'bg-teal-100 text-teal-800 border-teal-200 dark:bg-teal-900/30 dark:text-teal-300 dark:border-teal-800',
+        selected: 'bg-emerald-100 text-emerald-800 border-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-300 dark:border-emerald-800',
+        rejected: 'bg-red-100 text-red-800 border-red-200 dark:bg-red-900/30 dark:text-red-300 dark:border-red-800'
+      },
+      dept: {
+        'Airport Operations': 'bg-teal-100 text-teal-800 border-teal-200 dark:bg-teal-900/30 dark:text-teal-300 dark:border-teal-800',
+        'Engineering & Maintenance': 'bg-red-100 text-red-800 border-red-200 dark:bg-red-900/30 dark:text-red-300 dark:border-red-800',
+        'IT & Digital': 'bg-amber-100 text-amber-800 border-amber-200 dark:bg-amber-900/30 dark:text-amber-300 dark:border-amber-800',
+        'Finance': 'bg-emerald-100 text-emerald-800 border-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-300 dark:border-emerald-800',
+        'Human Resources': 'bg-rose-100 text-rose-800 border-rose-200 dark:bg-rose-900/30 dark:text-rose-300 dark:border-rose-800',
+        'Commercial & Retail': 'bg-amber-100 text-amber-800 border-amber-200 dark:bg-amber-900/30 dark:text-amber-300 dark:border-amber-800',
+        'Safety & Security': 'bg-red-100 text-red-800 border-red-200 dark:bg-red-900/30 dark:text-red-300 dark:border-red-800',
+        'Sustainability': 'bg-teal-100 text-teal-800 border-teal-200 dark:bg-teal-900/30 dark:text-teal-300 dark:border-teal-800'
+      }
+    };
+
+    function initTheme() { document.documentElement.className = db.getTheme(); }
+    initTheme();
+
+    function toggleTheme() {
+      const next = document.documentElement.className === 'dark' ? 'light' : 'dark';
+      document.documentElement.className = next;
+      db.setTheme(next);
+      render();
+    }
+
+    function showToast(msg, type = 'success') {
+      let c = document.getElementById('toast-container');
+      if (!c) { c = document.createElement('div');
+        c.id = 'toast-container';
+        c.className = 'fixed bottom-4 right-4 z-50 flex flex-col gap-2';
+        document.body.appendChild(c); }
+      const t = document.createElement('div');
+      const bgColor = type === 'error' ? 'bg-red-600' : type === 'warning' ? 'bg-amber-600' : 'bg-teal-600';
+      t.className = `rounded-xl px-5 py-3 text-sm font-semibold shadow-2xl animate-slide-up ${bgColor} text-white`;
+      t.textContent = msg;
+      c.appendChild(t);
+      setTimeout(() => { t.style.opacity = '0';
+        t.style.transform = 'translateX(100px)';
+        t.style.transition = 'all 0.3s ease';
+        setTimeout(() => t.remove(), 300); }, 3000);
+    }
+
+    function seed() {
+      let users = db.getUsers();
+      if (!users.find(u => u.email === ADMIN_EMAIL)) {
+        users.push({ id: uid(), name: 'BIAL Admin', email: ADMIN_EMAIL, password: simpleHash(ADMIN_PASSWORD), role: 'admin',
+          department: 'IT & Digital', college: '', year: '', skills: [], projects: [], bio: '',
+          createdAt: new Date().toISOString() });
+        db.saveUsers(users);
+      }
+      if (db.getInternships().length === 0) {
+        const admin = users.find(u => u.email === ADMIN_EMAIL);
+        db.saveInternships([
+          { id: uid(), title: 'Airport Operations Management Intern', department: 'Airport Operations',
+            description: 'Gain comprehensive exposure to terminal operations, passenger flow management, and ground handling coordination.',
+            location: 'Kempegowda International Airport, Bengaluru', duration: '6 months', stipend: 'Rs 25,000/month',
+            skills: ['Operations', 'Analysis', 'Leadership'], lastDate: daysFromNow(25), postedBy: admin.id,
+            createdAt: new Date().toISOString(), googleFormRequired: true },
+          { id: uid(), title: 'Full Stack Developer Intern', department: 'IT & Digital',
+            description: 'Build next-generation airport digital solutions. Work on passenger processing systems and IoT integration.',
+            location: 'BIAL HQ, Bengaluru', duration: '6 months', stipend: 'Rs 30,000/month',
+            skills: ['React', 'Node.js', 'AWS'], lastDate: daysFromNow(20), postedBy: admin.id,
+            createdAt: new Date().toISOString(), googleFormRequired: true },
+          { id: uid(), title: 'Sustainability Analyst Intern', department: 'Sustainability',
+            description: 'Contribute to BIAL net-zero goals. Work on environmental assessments and renewable energy projects.',
+            location: 'BIAL Campus, Bengaluru', duration: '4 months', stipend: 'Rs 22,000/month',
+            skills: ['ESG', 'Data Analysis', 'Python'], lastDate: daysFromNow(30), postedBy: admin.id,
+            createdAt: new Date().toISOString(), googleFormRequired: true }
+        ]);
+      }
+      if (db.getActiveInterns().length === 0) {
+        db.saveActiveInterns([
+          { id: uid(), name: 'Rohit Krishnan', email: 'rohit.k@bial.intern', department: 'IT & Digital',
+            college: 'RVCE Bengaluru', year: 'Final Year', skills: ['React', 'Node.js'], projects: ['Dashboard', 'API'],
+            bio: 'Full-stack developer passionate about aviation tech.', startDate: '2026-01-15', endDate: '2026-07-15',
+            mentor: 'Suresh Kumar', status: 'active' },
+          { id: uid(), name: 'Ananya Gupta', email: 'ananya.g@bial.intern', department: 'Sustainability',
+            college: 'IISc Bengaluru', year: 'M.Tech', skills: ['Python', 'GIS'], projects: ['Carbon Analysis'],
+            bio: 'Environmental engineer focused on sustainable aviation.', startDate: '2026-02-01', endDate: '2026-08-01',
+            mentor: 'Dr. Meera Iyer', status: 'active' }
+        ]);
+      }
+      // Seed some form submissions for demo
+      if (db.getFormSubmissions().length === 0) {
+        db.saveFormSubmissions([
+          { id: uid(), applicationId: uid(), studentId: uid(), studentName: 'Rahul Sharma', studentEmail: 'rahul.s@example.com',
+            studentCollege: 'IIT Bombay', studentYear: 'Final Year', internshipId: db.getInternships()[0]?.id || '',
+            submittedAt: new Date().toISOString(), status: 'submitted' },
+          { id: uid(), applicationId: uid(), studentId: uid(), studentName: 'Priya Patel', studentEmail: 'priya.p@example.com',
+            studentCollege: 'BITS Pilani', studentYear: '3rd Year', internshipId: db.getInternships()[1]?.id || '',
+            submittedAt: new Date().toISOString(), status: 'submitted' }
+        ]);
+      }
+    }
+    seed();
+
+    function escapeHtml(s = '') { const d = document.createElement('div');
+      d.textContent = s; return d.innerHTML; }
+
+    function logout() { db.clearSession();
+      location.hash = '#/login'; }
+
+    function requireRole(role) {
+      const session = db.getSession();
+      if (!session) { location.hash = '#/login'; return null; }
+      const user = db.getUsers().find(u => u.id === session.userId);
+      if (!user) { db.clearSession();
+        location.hash = '#/login'; return null; }
+      if (role && user.role !== role) { location.hash = user.role === 'admin' ? '#/admin' : '#/home'; return null; }
+      return user;
+    }
+
+    function badgeStyle(type, key) {
+      return STYLES[type]?.[key] || 'bg-gray-100 text-gray-800 border-gray-200 dark:bg-gray-900/30 dark:text-gray-300 dark:border-gray-800';
+    }
+
+    function navbar() {
+      const session = db.getSession();
+      if (!session) return '';
+      const user = db.getUsers().find(u => u.id === session.userId);
+      if (!user) return '';
+      const currentHash = location.hash || '#/home';
+      const isDark = document.documentElement.className === 'dark';
+      const studentLinks = [
+        { href: '#/home', label: 'Home' },
+        { href: '#/positions', label: 'Open Positions' },
+        { href: '#/applications', label: 'My Applications' },
+        { href: '#/interns', label: 'Interns' },
+        { href: '#/about', label: 'About BIAL' },
+        { href: '#/profile', label: 'Profile' }
+      ];
+      const adminLinks = [
+        { href: '#/admin', label: 'Dashboard' },
+        { href: '#/admin/internships', label: 'Positions' },
+        { href: '#/admin/applications', label: 'Applications' },
+        { href: '#/admin/active-interns', label: 'Interns' },
+        { href: '#/admin/settings', label: 'Settings' },
+        { href: '#/about', label: 'About BIAL' }
+      ];
+      const links = user.role === 'student' ? studentLinks : adminLinks;
+      return `
+        <nav class="sticky top-0 z-50 bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800">
+          <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
+            <a href="${user.role === 'admin' ? '#/admin' : '#/home'}" class="flex items-center gap-3 group">
+              <svg class="w-8 h-8 text-bial-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+              </svg>
+              <div>
+                <div class="text-lg font-bold text-slate-900 dark:text-white tracking-tight">BIAL</div>
+                <div class="text-[10px] text-slate-500 dark:text-slate-400 font-medium tracking-wider uppercase">Internship Program</div>
+              </div>
+            </a>
+            <div class="hidden lg:flex items-center gap-1">
+              ${links.map(link => {
+                const isActive = currentHash === link.href;
+                return `
+                  <a href="${link.href}" class="nav-link px-3 py-2 rounded-lg text-sm font-medium transition-colors ${isActive ? 'text-bial-teal bg-teal-50 dark:bg-teal-900/20 active' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800'}">
+                    ${link.label}
+                  </a>`;
+              }).join('')}
+              <div class="ml-3 flex items-center gap-2 pl-3 border-l border-slate-200 dark:border-slate-700">
+                <button onclick="toggleTheme()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-slate-600 dark:text-slate-400">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    ${isDark ? 
+                      '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>' :
+                      '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>'
+                    }
+                  </svg>
+                </button>
+                <div class="flex items-center gap-3">
+                  <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-bial-teal to-bial-amber flex items-center justify-center text-white text-xs font-bold">${user.name.split(' ').map(n => n[0]).join('').toUpperCase()}</div>
+                  <button onclick="logout()" class="px-3 py-1.5 rounded-lg text-sm font-medium text-bial-red hover:bg-red-50 dark:hover:bg-red-900/20 transition">Sign Out</button>
+                </div>
+              </div>
+            </div>
+            <div class="flex lg:hidden items-center gap-2">
+              <button onclick="toggleTheme()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">${isDark ? '&#9728;' : '&#9790;'}</button>
+              <button onclick="document.getElementById('mobileMenu').classList.toggle('hidden')" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
+                <svg class="w-6 h-6 text-slate-700 dark:text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+              </button>
+            </div>
+          </div>
+          <div id="mobileMenu" class="hidden lg:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950">
+            <div class="px-4 py-3 space-y-1">
+              ${links.map(link => `<a href="${link.href}" class="block px-3 py-2.5 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800">${link.label}</a>`).join('')}
+              <hr class="my-2 border-slate-200 dark:border-slate-800">
+              <div class="flex items-center justify-between px-3 py-2">
+                <span class="text-sm font-medium text-slate-900 dark:text-white">${escapeHtml(user.name)}</span>
+                <button onclick="logout()" class="px-3 py-1.5 rounded-lg text-sm font-medium text-bial-red hover:bg-red-50 dark:hover:bg-red-900/20">Sign Out</button>
+              </div>
+            </div>
+          </div>
+        </nav>`;
+    }
+
+    // ----- ABOUT PAGE (unchanged) -----
+    function pageAbout() {
+      const session = db.getSession();
+      const user = session ? db.getUsers().find(u => u.id === session.userId) : null;
+      return `
+        ${user ? navbar() : `
+          <nav class="sticky top-0 z-50 bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800">
+            <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
+              <a href="#/login" class="flex items-center gap-3">
+                <svg class="w-8 h-8 text-bial-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+                <div><div class="text-lg font-bold text-slate-900 dark:text-white">BIAL</div><div class="text-[10px] text-slate-500 dark:text-slate-400 uppercase">Internship Program</div></div>
+              </a>
+              <div class="flex items-center gap-3">
+                <button onclick="toggleTheme()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400">${document.documentElement.className === 'dark' ? '&#9728;' : '&#9790;'}</button>
+                <a href="#/login" class="px-4 py-2 rounded-lg bg-bial-teal text-white text-sm font-semibold hover:bg-bial-teal-dark transition">Sign In</a>
+              </div>
+            </div>
+          </nav>`}
+        <div class="relative bg-gradient-to-br from-slate-800 via-bial-teal-dark to-slate-800 text-white overflow-hidden">
+          <div class="absolute inset-0 opacity-20">
+            <div class="absolute -top-20 -left-20 w-96 h-96 bg-bial-teal/30 rounded-full blur-3xl animate-float-slow"></div>
+            <div class="absolute -bottom-20 -right-20 w-96 h-96 bg-bial-amber/20 rounded-full blur-3xl animate-float"></div>
+          </div>
+          <div class="relative mx-auto max-w-7xl px-6 py-28">
+            <div class="animate-slide-up">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-sm mb-6">
+                <span class="w-2 h-2 rounded-full bg-bial-teal-light pulse-dot"></span> India's Third Busiest Airport
+              </div>
+              <h1 class="text-6xl md:text-7xl font-black tracking-tight mb-6 leading-[1.05] text-teal-300">Bangalore International Airport Limited</h1>
+              <p class="text-xl text-slate-200 max-w-2xl leading-relaxed">Operator of Kempegowda International Airport, Bengaluru - a world-class gateway connecting South India to the globe.</p>
+            </div>
+          </div>
+        </div>
+        <div class="mx-auto max-w-7xl px-6 py-20">
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+            ${[{ label: 'Passengers Annually', value: '37.5M+', sub: 'Pre-pandemic peak', icon: 'M12 19l9 2-9-18-9 18 9-2zm0 0v-8' }, { label: 'Destinations', value: '100+', sub: 'Domestic & International', icon: 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z' }, { label: 'Airlines Operating', value: '45+', sub: 'Full service & LCC', icon: 'M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2' }, { label: 'Cargo Capacity', value: '700K+', sub: 'Tonnes per annum', icon: 'M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4' }].map((s, idx) => `
+              <div class="stat-card card-hover rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 animate-slide-up" style="animation-delay:${idx * 90}ms">
+                <svg class="w-6 h-6 text-bial-teal mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="${s.icon}"/></svg>
+                <div class="text-3xl font-black text-bial-teal">${s.value}</div>
+                <div class="text-sm font-semibold text-slate-900 dark:text-white mt-2">${s.label}</div>
+                <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">${s.sub}</div>
+              </div>`).join('')}
+          </div>
+          <div class="grid lg:grid-cols-2 gap-12 mb-20 items-start">
+            <div>
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 dark:bg-teal-900/20 border border-teal-200 dark:border-teal-800 text-bial-teal text-sm font-semibold mb-4">Our Story</div>
+              <h2 class="text-4xl font-black text-slate-900 dark:text-white mb-6">Redefining Airport Excellence</h2>
+              <div class="space-y-4 text-slate-600 dark:text-slate-300 leading-relaxed">
+                <p>Bangalore International Airport Limited (BIAL) is a public-private partnership that owns and operates Kempegowda International Airport, Bengaluru. Established in 2001, BIAL has transformed Bengaluru's aviation landscape.</p>
+                <p>The airport serves as the primary gateway to South India, handling over 33 million passengers annually and connecting Bengaluru to more than 100 destinations worldwide.</p>
+              </div>
+            </div>
+            <div class="space-y-4">
+              ${[{ title: 'Terminal 2', desc: 'India\'s first terminal built with bamboo and 100% renewable energy.', icon: 'M3 21h18M5 21V7l8-4v18M13 9h4v12M9 9h.01M9 13h.01M9 17h.01', color: 'from-bial-teal to-bial-teal-dark' }, { title: 'Sustainability', desc: 'Targeting Net Zero by 2030. Powered by 100% renewable energy since 2020.', icon: 'M12 3v1m0 16v1m8.66-13.66l-.7.7M4.04 19.96l-.7.7M21 12h-1M4 12H3m16.66 4.66l-.7-.7M4.04 4.04l-.7-.7M16 12a4 4 0 11-8 0 4 4 0 018 0z', color: 'from-bial-amber to-bial-amber-dark' }, { title: 'Innovation', desc: 'Biometric-enabled travel, IoT operations, and AI-driven passenger experience.', icon: 'M13 10V3L4 14h7v7l9-11h-7z', color: 'from-bial-red to-bial-red-dark' }].map((item, idx) => `
+                <div class="card-hover rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 flex items-start gap-4 animate-slide-up" style="animation-delay:${idx * 90}ms">
+                  <div class="w-11 h-11 shrink-0 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center">
+                    <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${item.icon}"/></svg>
+                  </div>
+                  <div>
+                    <h3 class="font-bold text-slate-900 dark:text-white mb-1">${item.title}</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-300">${item.desc}</p>
+                  </div>
+                </div>`).join('')}
+            </div>
+          </div>
+          <div class="mb-20">
+            <div class="text-center mb-12">
+              <h2 class="text-4xl font-black text-slate-900 dark:text-white mb-4">Our Departments</h2>
+              <p class="text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">Explore internship opportunities across diverse departments</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              ${DEPARTMENTS.map((dept, idx) => `
+                <div class="card-hover rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 text-center animate-scale-in" style="animation-delay:${idx * 60}ms">
+                  <div class="w-12 h-12 mx-auto mb-3 rounded-xl flex items-center justify-center text-lg font-black border ${badgeStyle('dept', dept)}">${dept.charAt(0)}</div>
+                  <div class="text-lg font-bold text-slate-900 dark:text-white">${dept}</div>
+                  <div class="text-xs text-slate-500 dark:text-slate-400 mt-2">${db.getInternships().filter(i => i.department === dept).length} open positions</div>
+                </div>`).join('')}
+            </div>
+          </div>
+          ${!user ? `
+            <div class="text-center">
+              <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-bial-teal to-bial-red p-12">
+                <div class="absolute -bottom-10 -right-10 w-56 h-56 bg-white/10 rounded-full blur-3xl animate-float"></div>
+                <h2 class="relative text-4xl font-black text-white mb-4">Ready to Launch Your Career?</h2>
+                <p class="relative text-white/80 text-lg mb-8">Join India's most innovative airport</p>
+                <div class="relative flex justify-center gap-4">
+                  <a href="#/signup" class="glow-btn rounded-xl bg-white text-bial-teal px-8 py-3.5 font-bold hover:shadow-xl transition">Create Account</a>
+                  <a href="#/login" class="rounded-xl bg-white/20 backdrop-blur text-white px-8 py-3.5 font-bold hover:bg-white/30 transition">Sign In</a>
+                </div>
+              </div>
+            </div>` : ''}
+        </div>`;
+    }
+
+    // ----- STUDENT HOME (unchanged) -----
+    function pageStudentHome() {
+      const user = requireRole('student');
+      if (!user) return '';
+      const internships = db.getInternships();
+      const myApps = db.getApplications().filter(a => a.studentId === user.id);
+      const activeInterns = db.getActiveInterns().filter(i => i.status === 'active');
+      return `
+        ${navbar()}
+        <div class="relative bg-gradient-to-br from-bial-slate via-bial-teal-dark to-bial-slate text-white overflow-hidden">
+          <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-20 left-10 w-72 h-72 bg-bial-teal rounded-full blur-3xl"></div>
+            <div class="absolute bottom-10 right-10 w-96 h-96 bg-bial-amber rounded-full blur-3xl"></div>
+          </div>
+          <div class="relative mx-auto max-w-7xl px-6 py-20">
+            <div class="max-w-3xl animate-slide-up">
+              <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-sm font-medium mb-6">
+                <span class="w-2 h-2 rounded-full bg-bial-teal-light animate-pulse"></span> ${internships.length} positions open
+              </div>
+              <h1 class="text-6xl font-black tracking-tight mb-6 leading-tight">Shape the Future<br>of Aviation</h1>
+              <p class="text-xl text-slate-300 mb-8">Join BIAL's internship program and work on projects that impact millions of travelers.</p>
+              <div class="flex gap-3">
+                <a href="#/positions" class="glow-btn rounded-xl bg-white text-slate-900 px-6 py-3.5 font-bold hover:shadow-2xl transition">Browse Positions</a>
+                <a href="#/about" class="rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-3.5 font-bold hover:bg-white/20 transition">About BIAL</a>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-16">
+              ${[{ v: internships.length, l: 'Open Positions', href: '#/positions' }, { v: DEPARTMENTS.length, l: 'Departments', href: '#/about' }, { v: activeInterns.length + '+', l: 'Interns', href: '#/interns' }, { v: myApps.length, l: 'Your Applications', href: '#/applications' }].map((s, idx) => `
+                <a href="${s.href}" class="stat-card card-hover bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-5 block animate-slide-up" style="animation-delay:${idx * 80}ms">
+                  <div class="text-3xl font-black">${s.v}</div>
+                  <div class="text-sm text-slate-300 mt-1">${s.l}</div>
+                </a>`).join('')}
+            </div>
+          </div>
+        </div>
+        <div class="mx-auto max-w-7xl px-6 py-16">
+          <div class="flex items-center justify-between mb-8">
+            <div><h2 class="text-3xl font-black text-slate-900 dark:text-white">Featured Positions</h2><p class="text-slate-500 dark:text-slate-400 mt-1">Latest openings</p></div>
+            <a href="#/positions" class="text-bial-teal font-semibold text-sm hover:underline">View All</a>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            ${internships.slice(0, 4).map((i, idx) => positionCard(i, myApps, idx)).join('')}
+          </div>
+        </div>`;
+    }
+
+    // ----- POSITION CARD (unchanged) -----
+    function positionCard(i, myApps = [], idx = 0) {
+      const app = myApps.find(a => a.internshipId === i.id);
+      const isExpired = new Date(i.lastDate) < new Date();
+      return `
+        <div class="stat-card card-hover rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 animate-scale-in" style="animation-delay:${idx * 60}ms">
+          <div class="flex items-start justify-between mb-3">
+            <span class="px-3 py-1 rounded-lg text-xs font-semibold border ${badgeStyle('dept', i.department)}">${escapeHtml(i.department)}</span>
+            ${app ? `<span class="px-3 py-1 rounded-lg text-xs font-semibold border ${badgeStyle('status', app.status)}">${app.status}</span>` : ''}
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">${escapeHtml(i.title)}</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-300 mb-4 line-clamp-2">${escapeHtml(i.description)}</p>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="text-xs text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-lg">${escapeHtml(i.location)}</span>
+            <span class="text-xs text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-lg">${escapeHtml(i.duration)}</span>
+            <span class="text-xs text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-lg">${escapeHtml(i.stipend)}</span>
+          </div>
+          ${i.skills ? `<div class="flex flex-wrap gap-1.5 mb-4">${i.skills.map(s => `<span class="rounded-lg bg-teal-50 dark:bg-teal-900/20 px-2.5 py-1 text-xs font-medium text-bial-teal">${escapeHtml(s)}</span>`).join('')}</div>` : ''}
+          <div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
+            <span class="text-xs ${isExpired ? 'text-bial-red' : 'text-slate-500 dark:text-slate-400'}">${isExpired ? 'Closed' : 'Apply by ' + fmtDate(i.lastDate)}</span>
+            ${!app && !isExpired ? `<button onclick="openApplicationModal('${i.id}')" class="glow-btn rounded-lg bg-bial-teal text-white px-4 py-2 text-xs font-bold hover:bg-bial-teal-dark transition">Apply Now</button>` : `<span class="text-xs font-semibold ${app ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400 dark:text-slate-500'}">${app ? 'Applied' : 'Closed'}</span>`}
+          </div>
+        </div>`;
+    }
+
+    // ============================================================
+    //  ENHANCED APPLICATION MODAL (with file upload)
+    // ============================================================
+    function openApplicationModal(internshipId) {
+      const user = requireRole('student');
+      if (!user) return;
+      const internship = db.getInternships().find(i => i.id === internshipId);
+      if (!internship) return;
+      const googleFormUrl = db.getGoogleFormUrl();
+      const hasGoogleForm = internship.googleFormRequired && googleFormUrl;
+
+      const overlay = document.createElement('div');
+      overlay.id = 'applicationModalOverlay';
+      overlay.className = 'fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-900/70 modal-backdrop animate-fade-in';
+      overlay.addEventListener('click', (e) => { if (e.target === overlay) closeApplicationModal(); });
+
+      overlay.innerHTML = `
+        <div class="w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl animate-scale-in">
+          <div class="relative bg-gradient-to-br from-bial-teal to-bial-teal-dark rounded-t-3xl px-8 pt-8 pb-12 text-white overflow-hidden">
+            <button onclick="closeApplicationModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition z-10">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+            <h2 class="text-2xl font-black">Apply for Position</h2>
+            <p class="text-teal-100 text-sm mt-1">${escapeHtml(internship.title)}</p>
+          </div>
+          <div class="px-8 pb-8 -mt-8">
+            <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border border-slate-200 dark:border-slate-700">
+              <div id="appFormError" class="mb-4 hidden rounded-xl bg-red-50 dark:bg-red-900/20 px-4 py-3 text-sm text-red-700 dark:text-red-400 border border-red-200 dark:border-red-800"></div>
+              ${hasGoogleForm ? `
+                <div class="mb-6 p-4 rounded-xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800">
+                  <p class="text-sm font-semibold text-amber-800 dark:text-amber-300 mb-2">Step 1: Fill the Google Form</p>
+                  <p class="text-xs text-amber-700 dark:text-amber-400 mb-3">You must complete the Google Form before submitting your application.</p>
+                  <a href="${googleFormUrl}" target="_blank" class="inline-block rounded-lg bg-amber-600 text-white px-4 py-2 text-xs font-bold hover:bg-amber-700 transition">Open Google Form</a>
+                </div>
+                <div class="mb-6">
+                  <label class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">Step 2: Confirm and Submit</label>
+                  <label class="flex items-center gap-3 cursor-pointer">
+                    <input type="checkbox" id="formCompletedCheckbox" class="w-5 h-5 rounded border-slate-300 text-bial-teal focus:ring-bial-teal" />
+                    <span class="text-sm text-slate-600 dark:text-slate-300">I have completed and submitted the Google Form</span>
+                  </label>
+                </div>
+              ` : `
+                <div class="mb-6 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+                  <p class="text-sm text-slate-600 dark:text-slate-300">Submit your application below. No additional form required.</p>
+                </div>
+              `}
+              <div class="mb-6">
+                <label class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">Why are you interested?</label>
+                <textarea id="coverLetterTextarea" rows="3" class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-700 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-bial-teal focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900 transition" placeholder="Tell us why you're a great fit..."></textarea>
+              </div>
+              <!-- Resume / File Upload -->
+              <div class="mb-6">
+                <label class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">Upload Resume (PDF, DOC, DOCX, PNG, JPG)</label>
+                <div class="file-input-wrapper w-full">
+                  <button class="w-full rounded-xl border-2 border-dashed border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800/50 px-4 py-3 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition text-center">
+                    <span id="fileNameDisplay">Choose file...</span>
+                  </button>
+                  <input type="file" id="resumeFileInput" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" />
+                </div>
+                <p class="text-xs text-slate-400 dark:text-slate-500 mt-1">Max 2MB. File will be stored securely.</p>
+              </div>
+              <button id="submitApplicationButton" class="w-full rounded-xl bg-bial-teal text-white py-3.5 text-sm font-bold hover:bg-bial-teal-dark transition shadow-lg">
+                Submit Application
+              </button>
+            </div>
+          </div>
+        </div>`;
+
+      document.body.appendChild(overlay);
+
+      // File input handler
+      const fileInput = document.getElementById('resumeFileInput');
+      const fileNameDisplay = document.getElementById('fileNameDisplay');
+      let fileData = null;
+      let fileBase64 = null;
+      let fileType = null;
+
+      if (fileInput) {
+        fileInput.addEventListener('change', function(e) {
+          const file = this.files[0];
+          if (!file) { fileNameDisplay.textContent = 'Choose file...';
+            fileData = null;
+            fileBase64 = null; return; }
+          if (file.size > 2 * 1024 * 1024) {
+            showToast('File too large. Max 2MB.', 'error');
+            this.value = '';
+            fileNameDisplay.textContent = 'Choose file...';
+            return;
+          }
+          fileNameDisplay.textContent = file.name;
+          fileType = file.type;
+          const reader = new FileReader();
+          reader.onload = function(ev) {
+            fileBase64 = ev.target.result;
+            fileData = { name: file.name, type: file.type, base64: fileBase64 };
+          };
+          reader.readAsDataURL(file);
+        });
+      }
+
+      // Submit
+      setTimeout(() => {
+        const btn = document.getElementById('submitApplicationButton');
+        if (btn) {
+          btn.onclick = function() {
+            const formCompleted = document.getElementById('formCompletedCheckbox');
+            const isFormCompleted = formCompleted ? formCompleted.checked : true;
+            const coverLetter = document.getElementById('coverLetterTextarea')?.value || '';
+            const errEl = document.getElementById('appFormError');
+
+            if (hasGoogleForm && !isFormCompleted) {
+              if (errEl) { errEl.textContent = 'Please complete the Google Form first and check the confirmation box';
+                errEl.classList.remove('hidden'); }
+              return;
+            }
+
+            const apps = db.getApplications();
+            if (apps.find(a => a.studentId === user.id && a.internshipId === internshipId)) {
+              showToast('Already applied to this position', 'error');
+              return;
+            }
+
+            const application = {
+              id: uid(),
+              studentId: user.id,
+              internshipId: internshipId,
+              status: 'pending',
+              appliedAt: new Date().toISOString(),
+              coverLetter: coverLetter,
+              googleFormCompleted: hasGoogleForm,
+              resume: fileData || null // store {name, type, base64}
+            };
+
+            apps.push(application);
+            db.saveApplications(apps);
+
+            if (hasGoogleForm) {
+              const submissions = db.getFormSubmissions();
+              const subId = uid();
+              submissions.push({
+                id: subId,
+                applicationId: application.id,
+                studentId: user.id,
+                studentName: user.name,
+                studentEmail: user.email,
+                studentCollege: user.college,
+                studentYear: user.year,
+                internshipId: internshipId,
+                submittedAt: new Date().toISOString(),
+                status: 'submitted'
+              });
+              db.saveFormSubmissions(submissions);
+            }
+
+            closeApplicationModal();
+            showToast('Application submitted successfully!');
+            render();
+          };
+        }
+      }, 100);
+    }
+
+    function closeApplicationModal() {
+      document.getElementById('applicationModalOverlay')?.remove();
+    }
+
+    // ============================================================
+    //  ADMIN DASHBOARD (clickable stats)
+    // ============================================================
+    function pageAdminDashboard() {
+      const admin = requireRole('admin');
+      if (!admin) return '';
+      const internships = db.getInternships(),
+        applications = db.getApplications(),
+        activeInterns = db.getActiveInterns().filter(i => i.status === 'active');
+      const breakdown = { pending: 0, shortlisted: 0, rejected: 0, selected: 0 };
+      applications.forEach(a => { breakdown[a.status] = (breakdown[a.status] || 0) + 1; });
+
+      const stats = [
+        { v: internships.length, l: 'Open Positions', href: '#/admin/internships' },
+        { v: applications.length, l: 'Applications', href: '#/admin/applications' },
+        { v: activeInterns.length, l: 'Active Interns', href: '#/admin/active-interns' },
+        { v: db.getUsers().filter(u => u.role === 'student').length, l: 'Students', href: '#/admin/applications' }
+      ];
+
+      return `${navbar()}
+        <div class="bg-gradient-to-br from-bial-slate to-bial-teal-dark text-white">
+          <div class="mx-auto max-w-7xl px-6 py-16">
+            <div class="flex items-center justify-between">
+              <div><h1 class="text-5xl font-black">Dashboard</h1><p class="text-slate-300 mt-2">Program Overview</p></div>
+              <a href="#/admin/internships/create" class="rounded-xl bg-white text-bial-teal px-6 py-3 font-bold hover:shadow-xl transition">+ New Position</a>
+            </div>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-10">
+              ${stats.map(s => `
+                <a href="${s.href}" class="stat-card bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-5 block hover:bg-white/10 transition">
+                  <div class="text-3xl font-black">${s.v}</div>
+                  <div class="text-sm text-slate-300 mt-1">${s.l}</div>
+                </a>`).join('')}
+            </div>
+          </div>
+        </div>
+        <div class="mx-auto max-w-7xl px-6 py-10">
+          <div class="grid lg:grid-cols-2 gap-8">
+            <div class="stat-card rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-6">Status Overview</h3>
+              ${Object.entries(breakdown).map(([status, count]) => `
+                <div class="mb-4">
+                  <div class="flex justify-between text-sm mb-2">
+                    <span class="font-medium text-slate-700 dark:text-slate-300 capitalize">${status}</span>
+                    <span class="font-bold text-slate-900 dark:text-white">${count}</span>
+                  </div>
+                  <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2">
+                    <div class="h-full rounded-full ${status === 'pending' ? 'bg-bial-amber' : status === 'shortlisted' ? 'bg-bial-teal' : status === 'selected' ? 'bg-emerald-500' : 'bg-bial-red'}" style="width:${applications.length ? (count / applications.length * 100) : 0}%"></div>
+                  </div>
+                </div>`).join('')}
+            </div>
+            <div class="stat-card rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-6">Departments</h3>
+              ${DEPARTMENTS.map(dept => `
+                <div class="flex items-center justify-between py-2">
+                  <span class="text-sm text-slate-700 dark:text-slate-300">${dept}</span>
+                  <span class="text-sm font-bold text-bial-teal">${internships.filter(i => i.department === dept).length} open</span>
+                </div>`).join('')}
+            </div>
+          </div>
+        </div>`;
+    }
+
+    // ============================================================
+    //  ADMIN APPLICATIONS (with AUTO-CONVERT when status becomes "selected")
+    // ============================================================
+    function pageAdminApplications() {
+      const admin = requireRole('admin');
+      if (!admin) return '';
+      return `${navbar()}
+        <div class="mx-auto max-w-7xl px-6 py-10">
+          <h1 class="text-4xl font-black text-slate-900 dark:text-white mb-8">Applications</h1>
+          <div class="flex gap-3 mb-6 flex-wrap">
+            <select id="deptFilter" onchange="renderAdminApps()" class="rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm text-slate-900 dark:text-white focus:border-bial-teal focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900 transition">
+              <option value="">All Depts</option>${DEPARTMENTS.map(d => `<option>${d}</option>`).join('')}
+            </select>
+            <select id="statusFilter" onchange="renderAdminApps()" class="rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm text-slate-900 dark:text-white focus:border-bial-teal focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900 transition">
+              <option value="">All Status</option><option>pending</option><option>shortlisted</option><option>selected</option><option>rejected</option>
+            </select>
+          </div>
+          <div id="adminAppsTable"></div>
+        </div>`;
+    }
+
+    // ============================================================
+    //  UPDATED: updateAppStatus with AUTO-CONVERT to Intern
+    // ============================================================
+    function updateAppStatus(id, status) {
+      const apps = db.getApplications();
+      const a = apps.find(x => x.id === id);
+      if (!a) return;
+      
+      const oldStatus = a.status;
+      a.status = status;
+      db.saveApplications(apps);
+      
+      // 🔥 AUTO-CONVERT: If status changed to "selected", add to interns
+      if (status === 'selected' && oldStatus !== 'selected') {
+        const users = db.getUsers();
+        const student = users.find(u => u.id === a.studentId);
+        const internship = db.getInternships().find(i => i.id === a.internshipId);
+        
+        if (student) {
+          // Check if already an intern
+          const existingInterns = db.getActiveInterns();
+          const alreadyIntern = existingInterns.find(intern => intern.email === student.email);
+          
+          if (!alreadyIntern) {
+            // Auto-generate start date (today) and end date (6 months from now)
+            const startDate = new Date().toISOString().slice(0, 10);
+            const endDate = new Date();
+            endDate.setMonth(endDate.getMonth() + 6);
+            const endDateStr = endDate.toISOString().slice(0, 10);
+            
+            const newIntern = {
+              id: uid(),
+              name: student.name,
+              email: student.email,
+              department: internship ? internship.department : 'IT & Digital',
+              college: student.college || 'N/A',
+              year: student.year || 'N/A',
+              skills: student.skills || [],
+              projects: student.projects || [],
+              bio: student.bio || '',
+              startDate: startDate,
+              endDate: endDateStr,
+              mentor: 'TBD',
+              status: 'active',
+              createdAt: new Date().toISOString()
+            };
+            
+            existingInterns.push(newIntern);
+            db.saveActiveInterns(existingInterns);
+            showToast('✅ Student auto-converted to Intern!');
+          } else {
+            showToast('⚠️ Student is already an intern', 'warning');
+          }
+        }
+      }
+      
+      // If status is changed FROM "selected" to something else, remove from interns? No, keep them.
+      // We'll keep interns even if status changes back.
+      
+      showToast('Status updated');
+      renderAdminApps();
+      // Also re-render the whole app to update dashboard counts
+      render();
+    }
+
+    function renderAdminApps() {
+      const fs = document.getElementById('statusFilter')?.value || '',
+        fd = document.getElementById('deptFilter')?.value || '';
+      let apps = db.getApplications().sort((a, b) => new Date(b.appliedAt) - new Date(a.appliedAt));
+      const users = db.getUsers(),
+        internships = db.getInternships();
+      if (fs) apps = apps.filter(a => a.status === fs);
+      if (fd) apps = apps.filter(a => { const i = internships.find(x => x.id === a.internshipId); return i?.department === fd; });
+      const el = document.getElementById('adminAppsTable');
+      if (!el) return;
+      el.innerHTML = apps.length === 0 ?
+        `<p class="text-center py-16 text-slate-500 dark:text-slate-400">No applications</p>` :
+        `<div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="bg-slate-50 dark:bg-slate-800/50">
+              <tr>
+                <th class="px-6 py-4 text-left font-semibold text-slate-700 dark:text-slate-300">Student</th>
+                <th class="px-6 py-4 text-left font-semibold text-slate-700 dark:text-slate-300">Position</th>
+                <th class="px-6 py-4 text-left font-semibold text-slate-700 dark:text-slate-300">Dept</th>
+                <th class="px-6 py-4 text-left font-semibold text-slate-700 dark:text-slate-300">Applied</th>
+                <th class="px-6 py-4 text-left font-semibold text-slate-700 dark:text-slate-300">Form</th>
+                <th class="px-6 py-4 text-left font-semibold text-slate-700 dark:text-slate-300">Status</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+              ${apps.map(a => {
+                const s = users.find(u => u.id === a.studentId);
+                const i = internships.find(x => x.id === a.internshipId);
+                return `<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30">
+                  <td class="px-6 py-4">
+                    <span onclick="openApplicantProfile('${a.id}')" class="font-medium text-slate-900 dark:text-white clickable-name">${escapeHtml(s?.name || '?')}</span>
+                    <br><span class="text-xs text-slate-500 dark:text-slate-400">${escapeHtml(s?.email || '')}</span>
+                  </td>
+                  <td class="px-6 py-4 text-slate-900 dark:text-white">${escapeHtml(i?.title || 'Removed')}</td>
+                  <td class="px-6 py-4"><span class="px-3 py-1 rounded-lg text-xs font-semibold border ${i ? badgeStyle('dept', i.department) : ''}">${i?.department || 'N/A'}</span></td>
+                  <td class="px-6 py-4 text-slate-500 dark:text-slate-400">${fmtDate(a.appliedAt)}</td>
+                  <td class="px-6 py-4">${a.googleFormCompleted ? `<span class="text-xs text-bial-teal font-semibold">✔</span>` : `<span class="text-xs text-slate-400">—</span>`}</td>
+                  <td class="px-6 py-4">
+                    <select onchange="updateAppStatus('${a.id}',this.value)" class="rounded-lg px-3 py-1.5 text-xs font-semibold border ${badgeStyle('status', a.status)} bg-transparent">
+                      ${['pending','shortlisted','selected','rejected'].map(st => `<option ${st === a.status ? 'selected' : ''}>${st}</option>`).join('')}
+                    </select>
+                  </td>
+                </tr>`;
+              }).join('')}
+            </tbody>
+          </table>
+        </div>`;
+    }
+
+    // ============================================================
+    //  APPLICANT PROFILE MODAL (with resume download)
+    // ============================================================
+    function openApplicantProfile(applicationId) {
+      const apps = db.getApplications();
+      const app = apps.find(a => a.id === applicationId);
+      if (!app) return;
+      const student = db.getUsers().find(u => u.id === app.studentId);
+      if (!student) return;
+      const internship = db.getInternships().find(i => i.id === app.internshipId);
+
+      const overlay = document.createElement('div');
+      overlay.id = 'applicantModalOverlay';
+      overlay.className = 'fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-900/70 modal-backdrop animate-fade-in';
+      overlay.addEventListener('click', (e) => { if (e.target === overlay) closeApplicantProfile(); });
+
+      const initials = student.name.split(' ').map(n => n[0]).join('').toUpperCase();
+      let resumeHtml = '';
+      if (app.resume && app.resume.base64) {
+        const ext = app.resume.name.split('.').pop().toLowerCase();
+        const isImage = ['png', 'jpg', 'jpeg', 'gif', 'webp'].includes(ext);
+        const downloadLink = app.resume.base64;
+        resumeHtml = `
+          <div class="mt-6 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-medium text-slate-700 dark:text-slate-300">📎 ${escapeHtml(app.resume.name)}</span>
+              <a href="${downloadLink}" download="${escapeHtml(app.resume.name)}" class="rounded-lg bg-bial-teal text-white px-4 py-2 text-xs font-bold hover:bg-bial-teal-dark transition">Download</a>
+            </div>
+          </div>`;
+      } else if (app.resume) {
+        resumeHtml = `<p class="text-sm text-slate-500 dark:text-slate-400 mt-2">Resume file not available (invalid format).</p>`;
+      }
+
+      overlay.innerHTML = `
+        <div class="w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl animate-scale-in">
+          <div class="relative bg-gradient-to-br from-bial-slate via-bial-teal-dark to-bial-slate rounded-t-3xl px-6 pt-6 pb-20 text-white overflow-hidden">
+            <button onclick="closeApplicantProfile()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition z-10">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+            <span class="relative px-3 py-1 rounded-lg text-xs font-semibold border ${internship ? badgeStyle('dept', internship.department) : ''} bg-white/90 text-slate-900">${internship ? internship.department : 'N/A'}</span>
+            <div class="mt-2 text-sm text-white/80">Application · ${fmtDate(app.appliedAt)}</div>
+          </div>
+          <div class="px-6 -mt-16 pb-8">
+            <div class="avatar-ring w-24 h-24 shadow-xl mb-4">
+              <div class="w-full h-full rounded-[0.9rem] bg-white dark:bg-slate-900 flex items-center justify-center text-2xl font-black text-slate-900 dark:text-white">${initials}</div>
+            </div>
+            <h2 class="text-2xl font-black text-slate-900 dark:text-white">${escapeHtml(student.name)}</h2>
+            <p class="text-sm text-slate-500 dark:text-slate-400">${escapeHtml(student.email)}</p>
+            <div class="mt-4 grid grid-cols-2 gap-4 text-sm">
+              <div class="rounded-xl bg-slate-50 dark:bg-slate-800/50 p-3">
+                <div class="text-slate-500 dark:text-slate-400 text-xs">College</div>
+                <div class="font-semibold text-slate-900 dark:text-white">${escapeHtml(student.college || '-')}</div>
+              </div>
+              <div class="rounded-xl bg-slate-50 dark:bg-slate-800/50 p-3">
+                <div class="text-slate-500 dark:text-slate-400 text-xs">Year</div>
+                <div class="font-semibold text-slate-900 dark:text-white">${escapeHtml(student.year || '-')}</div>
+              </div>
+            </div>
+            ${student.skills?.length ? `
+              <div class="mt-4">
+                <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-2">Skills</h3>
+                <div class="flex flex-wrap gap-2">${student.skills.map(s => `<span class="rounded-lg bg-teal-50 dark:bg-teal-900/20 px-3 py-1.5 text-xs font-medium text-bial-teal">${escapeHtml(s)}</span>`).join('')}</div>
+              </div>` : ''}
+            ${student.projects?.length ? `
+              <div class="mt-4">
+                <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-2">Projects</h3>
+                <div class="space-y-2">${student.projects.map(p => `<div class="rounded-xl bg-slate-50 dark:bg-slate-800/50 px-4 py-2.5 text-sm font-medium text-slate-700 dark:text-slate-300">${escapeHtml(p)}</div>`).join('')}</div>
+              </div>` : ''}
+            ${student.bio ? `<div class="mt-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 text-sm text-slate-600 dark:text-slate-300 italic">"${escapeHtml(student.bio)}"</div>` : ''}
+            <div class="mt-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50">
+              <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-2">Cover Letter</h3>
+              <p class="text-sm text-slate-600 dark:text-slate-300 whitespace-pre-wrap">${escapeHtml(app.coverLetter || 'No cover letter provided.')}</p>
+            </div>
+            ${resumeHtml}
+            <div class="mt-6 flex items-center justify-between border-t border-slate-200 dark:border-slate-700 pt-4">
+              <span class="px-3 py-1 rounded-lg text-xs font-semibold border ${badgeStyle('status', app.status)} capitalize">${app.status}</span>
+              <span class="text-xs text-slate-400 dark:text-slate-500">${app.googleFormCompleted ? 'Google Form ✔' : 'No form'}</span>
+            </div>
+          </div>
+        </div>`;
+      document.body.appendChild(overlay);
+    }
+
+    function closeApplicantProfile() {
+      document.getElementById('applicantModalOverlay')?.remove();
+    }
+
+    // ============================================================
+    //  ADMIN SETTINGS - Shows CV files from applications + Export Excel
+    // ============================================================
+    function pageAdminSettings() {
+      const admin = requireRole('admin');
+      if (!admin) return '';
+      const googleFormUrl = db.getGoogleFormUrl();
+      const submissions = db.getFormSubmissions();
+      const applications = db.getApplications();
+
+      return `${navbar()}
+        <div class="mx-auto max-w-6xl px-6 py-10">
+          <h1 class="text-4xl font-black text-slate-900 dark:text-white mb-8">Settings</h1>
+          <div class="grid gap-8">
+            <!-- Google Form URL -->
+            <div class="stat-card rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">Google Form Configuration</h3>
+              <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Set the Google Form URL that applicants will fill out.</p>
+              <div class="flex gap-3 flex-wrap">
+                <input id="googleFormUrlInput" value="${escapeHtml(googleFormUrl)}" placeholder="https://forms.google.com/..." class="flex-1 min-w-[200px] rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-bial-teal focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900 transition" />
+                <button onclick="saveGoogleFormUrl()" class="rounded-xl bg-bial-teal text-white px-6 py-3 text-sm font-bold hover:bg-bial-teal-dark transition">Save</button>
+              </div>
+            </div>
+
+            <!-- Form Submissions with CV Download -->
+            <div class="stat-card rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+              <div class="flex items-center justify-between flex-wrap gap-4 mb-4">
+                <div>
+                  <h3 class="text-lg font-bold text-slate-900 dark:text-white">Google Form Submissions</h3>
+                  <p class="text-sm text-slate-500 dark:text-slate-400">Students who completed the Google Form during their application.</p>
+                </div>
+                <div class="flex gap-2 flex-wrap">
+                  <button onclick="exportSubmissionsToExcel()" class="rounded-xl bg-emerald-600 text-white px-5 py-2.5 text-sm font-bold hover:bg-emerald-700 transition shadow-md flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    Export to Excel
+                  </button>
+                </div>
+              </div>
+
+              ${submissions.length === 0 ? 
+                `<p class="text-sm text-slate-400 dark:text-slate-500">No form submissions yet.</p>` : 
+                `<div class="rounded-xl border border-slate-200 dark:border-slate-700 overflow-x-auto">
+                  <table class="w-full text-sm">
+                    <thead class="bg-slate-50 dark:bg-slate-800/50">
+                      <tr>
+                        <th class="px-4 py-3 text-left font-semibold text-slate-700 dark:text-slate-300">Student</th>
+                        <th class="px-4 py-3 text-left font-semibold text-slate-700 dark:text-slate-300">Email</th>
+                        <th class="px-4 py-3 text-left font-semibold text-slate-700 dark:text-slate-300">College</th>
+                        <th class="px-4 py-3 text-left font-semibold text-slate-700 dark:text-slate-300">Year</th>
+                        <th class="px-4 py-3 text-left font-semibold text-slate-700 dark:text-slate-300">Submitted</th>
+                        <th class="px-4 py-3 text-left font-semibold text-slate-700 dark:text-slate-300">CV / Resume</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                      ${submissions.map(s => {
+                        // Find the application linked to this submission
+                        const app = applications.find(a => a.id === s.applicationId);
+                        // Check if the application has a resume
+                        const hasResume = app && app.resume && app.resume.base64;
+                        
+                        return `<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30">
+                          <td class="px-4 py-3 font-medium text-slate-900 dark:text-white">${escapeHtml(s.studentName)}</td>
+                          <td class="px-4 py-3 text-slate-500 dark:text-slate-400">${escapeHtml(s.studentEmail)}</td>
+                          <td class="px-4 py-3 text-slate-500 dark:text-slate-400">${escapeHtml(s.studentCollege)}</td>
+                          <td class="px-4 py-3 text-slate-500 dark:text-slate-400">${escapeHtml(s.studentYear)}</td>
+                          <td class="px-4 py-3 text-xs text-slate-400 dark:text-slate-500">${fmtDate(s.submittedAt)}</td>
+                          <td class="px-4 py-3">
+                            ${hasResume ? 
+                              `<a href="${app.resume.base64}" download="${escapeHtml(app.resume.name)}" class="inline-flex items-center gap-1 rounded-lg bg-bial-teal/10 text-bial-teal px-3 py-1.5 text-xs font-semibold hover:bg-bial-teal/20 transition">
+                                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                                ${escapeHtml(app.resume.name)}
+                              </a>` : 
+                              `<span class="text-xs text-slate-400">No CV uploaded</span>`
+                            }
+                          </td>
+                        </tr>`;
+                      }).join('')}
+                    </tbody>
+                  </table>
+                </div>`
+              }
+            </div>
+          </div>
+        </div>`;
+    }
+
+    // ============================================================
+    //  EXPORT TO EXCEL (CSV format, opens in Excel)
+    // ============================================================
+    function exportSubmissionsToExcel() {
+      const submissions = db.getFormSubmissions();
+      if (submissions.length === 0) {
+        showToast('No submissions to export', 'warning');
+        return;
+      }
+
+      // Create CSV content
+      let csv = '\uFEFF'; // BOM for Excel UTF-8
+      csv += 'Student Name,Email,College,Year,Submission Date,CV Uploaded\n';
+      
+      const applications = db.getApplications();
+      submissions.forEach(s => {
+        const app = applications.find(a => a.id === s.applicationId);
+        const hasResume = app && app.resume && app.resume.base64 ? 'Yes' : 'No';
+        csv += `"${s.studentName}","${s.studentEmail}","${s.studentCollege}","${s.studentYear}","${new Date(s.submittedAt).toLocaleString()}","${hasResume}"\n`;
+      });
+
+      // Download as CSV
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `BIAL_Form_Submissions_${new Date().toISOString().slice(0,10)}.csv`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(link.href);
+      showToast('Exported successfully!');
+    }
+
+    // ============================================================
+    //  OTHER ADMIN PAGES (unchanged)
+    // ============================================================
+    function saveGoogleFormUrl() { 
+      const input = document.getElementById('googleFormUrlInput'); 
+      if (input) { 
+        db.setGoogleFormUrl(input.value.trim());
+        showToast('Saved!'); 
+      } 
+    }
+
+    // ----- Other student/admin functions (unchanged) -----
+    function pagePositions() { const user = requireRole('student'); if (!user) return ''; return `${navbar()}<div class="bg-gradient-to-br from-bial-slate to-bial-teal-dark text-white"><div class="mx-auto max-w-7xl px-6 py-16"><h1 class="text-5xl font-black tracking-tight">Open Positions</h1><p class="text-slate-300 mt-2 text-lg">Find your internship at BIAL</p></div></div><div class="mx-auto max-w-7xl px-6 py-10"><div class="flex gap-2 overflow-x-auto scrollbar-hide pb-4 mb-6"><button onclick="filterByDepartment('all')" id="dept-all" class="whitespace-nowrap rounded-xl px-5 py-2.5 text-sm font-semibold bg-bial-teal text-white">All</button>${DEPARTMENTS.map(dept => `<button onclick="filterByDepartment('${dept}')" id="dept-${dept.replace(/[^a-zA-Z0-9]/g, '-')}" class="whitespace-nowrap rounded-xl px-5 py-2.5 text-sm font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">${dept}</button>`).join('')}</div><div class="relative mb-8"><input id="searchInput" oninput="debounceSearch()" placeholder="Search positions..." class="w-full rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-bial-teal focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900 transition" /></div><div id="results" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div></div>`; }
+    let currentDeptFilter = 'all';
+    let searchTimeout;
+
+    function debounceSearch() { clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => { const st = document.getElementById('searchInput')?.value || '';
+        renderPositions({ search: st }); }, 300); }
+
+    function filterByDepartment(dept) { currentDeptFilter = dept;
+      document.querySelectorAll('[id^="dept-"]').forEach(el => { el.classList.remove('bg-bial-teal', 'text-white');
+        el.classList.add('bg-slate-100', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300'); });
+      const did = dept === 'all' ? 'all' : dept.replace(/[^a-zA-Z0-9]/g, '-');
+      const el = document.getElementById(`dept-${did}`);
+      if (el) { el.classList.remove('bg-slate-100', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+        el.classList.add('bg-bial-teal', 'text-white'); }
+      const st = document.getElementById('searchInput')?.value || '';
+      renderPositions({ search: st }); }
+
+    function renderPositions(f = {}) { const user = requireRole('student'); if (!user) return; let list = db.getInternships(); if (
+        currentDeptFilter !== 'all') list = list.filter(i => i.department === currentDeptFilter); if (f.search) { const q = f
+          .search.toLowerCase();
+        list = list.filter(i => i.title.toLowerCase().includes(q) || i.department.toLowerCase().includes(q) || (i.skills ||
+          []).some(s => s.toLowerCase().includes(q))); }
+      list = [...list].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      const myApps = db.getApplications().filter(a => a.studentId === user.id);
+      const el = document.getElementById('results'); if (!el) return;
+      el.innerHTML = list.length === 0 ? `<div class="col-span-full text-center py-20"><p class="text-slate-500 dark:text-slate-400 text-lg">No positions found</p></div>` :
+        list.map((i, idx) => positionCard(i, myApps, idx)).join(''); }
+
+    function bindPositions() { renderPositions(); }
+
+    function pageStudentApplications() { const user = requireRole('student'); if (!user) return ''; const apps = db
+        .getApplications().filter(a => a.studentId === user.id).sort((a, b) => new Date(b.appliedAt) - new Date(a.appliedAt));
+      const internships = db.getInternships(); return `${navbar()}
+        <div class="bg-gradient-to-br from-bial-slate to-bial-teal-dark text-white"><div class="mx-auto max-w-7xl px-6 py-16"><h1 class="text-5xl font-black tracking-tight">My Applications</h1><p class="text-slate-300 mt-2 text-lg">Track your applications</p></div></div>
+        <div class="mx-auto max-w-5xl px-6 py-10">
+          ${apps.length === 0 ? `<div class="text-center py-20"><p class="text-slate-500 dark:text-slate-400 text-lg mb-4">No applications yet</p><a href="#/positions" class="rounded-xl bg-bial-teal text-white px-6 py-3 text-sm font-bold hover:bg-bial-teal-dark transition">Browse Positions</a></div>` : 
+            apps.map((a) => {
+              const i = internships.find(x => x.id === a.internshipId);
+              const statusSymbol = a.status === 'selected' ? '&#10003;' : a.status === 'shortlisted' ? '&#9733;' : a.status === 'rejected' ? '&#10007;' : '&#8943;';
+              return `<div class="stat-card rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 mb-4 animate-slide-up">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <div class="flex items-center gap-3 mb-2">
+                      <span class="px-3 py-1 rounded-lg text-xs font-semibold border ${i ? badgeStyle('dept', i.department) : ''}">${escapeHtml(i?.department || 'N/A')}</span>
+                      <span class="px-3 py-1 rounded-lg text-xs font-semibold border ${badgeStyle('status', a.status)} capitalize">${a.status}</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">${escapeHtml(i?.title || 'Position Removed')}</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Applied ${fmtDate(a.appliedAt)}</p>
+                    ${a.googleFormCompleted ? '<p class="text-xs text-bial-teal mt-1 font-medium">Google Form submitted</p>' : ''}
+                    ${a.resume ? `<p class="text-xs text-slate-400 mt-1">📎 ${escapeHtml(a.resume.name)}</p>` : ''}
+                  </div>
+                  <div class="text-2xl font-bold ${a.status === 'selected' ? 'text-emerald-500' : a.status === 'shortlisted' ? 'text-bial-amber' : a.status === 'rejected' ? 'text-bial-red' : 'text-slate-400'}">${statusSymbol}</div>
+                </div>
+                ${a.status === 'selected' ? `<div class="mt-4 p-4 rounded-xl bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800"><p class="text-sm text-emerald-800 dark:text-emerald-300 font-medium">Congratulations! You've been selected.</p></div>` : ''}
+              </div>`;
+            }).join('')}
+        </div>`; }
+
+    function pageStudentProfile() { const user = requireRole('student'); if (!user) return ''; const apps = db.getApplications()
+        .filter(a => a.studentId === user.id); return `${navbar()}
+        <div class="mx-auto max-w-6xl px-6 py-10"><div class="grid lg:grid-cols-3 gap-8">
+          <div class="lg:col-span-1"><div class="stat-card rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 text-center sticky top-24">
+            <div class="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-bial-teal to-bial-amber flex items-center justify-center text-2xl font-bold text-white shadow-xl mb-4">${user.name.split(' ').map(n => n[0]).join('').toUpperCase()}</div>
+            <h2 class="text-xl font-bold text-slate-900 dark:text-white">${escapeHtml(user.name)}</h2>
+            <p class="text-sm text-slate-500 dark:text-slate-400">${escapeHtml(user.college)}</p>
+            <p class="text-xs text-slate-400 dark:text-slate-500">${escapeHtml(user.year)}</p>
+            <div class="mt-6 space-y-3 text-left text-sm">
+              <div class="flex items-center justify-between"><span class="text-slate-500 dark:text-slate-400">Email</span><span class="font-medium text-slate-900 dark:text-white">${escapeHtml(user.email)}</span></div>
+              <div class="flex items-center justify-between"><span class="text-slate-500 dark:text-slate-400">College</span><span class="font-medium text-slate-900 dark:text-white">${escapeHtml(user.college)}</span></div>
+              <div class="flex items-center justify-between"><span class="text-slate-500 dark:text-slate-400">Applications</span><span class="font-bold text-bial-teal">${apps.length}</span></div>
+            </div>
+            ${user.bio ? `<div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800"><p class="text-sm text-slate-500 dark:text-slate-400 italic">"${escapeHtml(user.bio)}"</p></div>` : ''}
+            <button onclick="editStudentProfile()" class="mt-6 w-full rounded-xl border-2 border-slate-200 dark:border-slate-700 px-4 py-2.5 text-sm font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">Edit Profile</button>
+          </div></div>
+          <div class="lg:col-span-2 space-y-6">
+            <div class="stat-card rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6"><h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">Skills</h3>${user.skills?.length ? `<div class="flex flex-wrap gap-2">${user.skills.map(s => `<span class="rounded-xl bg-teal-50 dark:bg-teal-900/20 px-4 py-2 text-sm font-medium text-bial-teal">${escapeHtml(s)}</span>`).join('')}</div>` : '<p class="text-sm text-slate-500 dark:text-slate-400">No skills added</p>'}</div>
+            <div class="stat-card rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6"><h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">Projects</h3>${user.projects?.length ? `<div class="space-y-3">${user.projects.map(p => `<div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50"><p class="font-semibold text-slate-900 dark:text-white">${escapeHtml(p)}</p></div>`).join('')}</div>` : '<p class="text-sm text-slate-500 dark:text-slate-400">No projects added</p>'}</div>
+          </div>
+        </div></div>`; }
+
+    function editStudentProfile() { const user = requireRole('student'); if (!user) return; const ns = prompt('Skills:', (user
+          .skills || []).join(', ')); if (ns !== null) user.skills = ns.split(',').map(s => s.trim()).filter(Boolean); const np =
+        prompt('Projects:', (user.projects || []).join(', ')); if (np !== null) user.projects = np.split(',').map(s => s.trim())
+        .filter(Boolean); const nb = prompt('Bio:', user.bio || ''); if (nb !== null) user.bio = nb.trim(); const users = db
+        .getUsers(); const idx = users.findIndex(u => u.id === user.id); if (idx !== -1) { users[idx] = user;
+        db.saveUsers(users);
+        showToast('Profile updated');
+        render(); } }
+
+    let currentInternTab = 'active';
+    let currentInternDept = '';
+
+    function pageInterns() { const user = requireRole('student'); if (!user) return ''; const all = db.getActiveInterns();
+      const activeCount = all.filter(i => i.status === 'active').length;
+      const pastCount = all.filter(i => i.status !== 'active').length; return `${navbar()}
+        <div class="relative bg-gradient-to-br from-bial-slate to-bial-teal-dark text-white overflow-hidden">
+          <div class="absolute -top-10 -right-10 w-72 h-72 bg-bial-teal/20 rounded-full blur-3xl animate-float-slow"></div>
+          <div class="absolute bottom-0 left-1/4 w-64 h-64 bg-bial-amber/20 rounded-full blur-3xl animate-float"></div>
+          <div class="relative mx-auto max-w-7xl px-6 py-16"><h1 class="text-5xl font-black tracking-tight">Interns</h1><p class="text-slate-300 mt-2 text-lg">The people building the future of BIAL</p></div>
+        </div>
+        <div class="mx-auto max-w-7xl px-6 py-10">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+            <div class="segmented bg-slate-100 dark:bg-slate-800">
+              <div id="internTabThumb" class="thumb"></div>
+              <button onclick="switchInternTab('active')" id="tab-active" class="relative z-10 px-5 py-2.5 rounded-xl text-sm font-bold transition-colors">Active (${activeCount})</button>
+              <button onclick="switchInternTab('past')" id="tab-past" class="relative z-10 px-5 py-2.5 rounded-xl text-sm font-bold transition-colors">Past (${pastCount})</button>
+            </div>
+            <select id="internDeptFilter" onchange="filterInternsByDept(this.value)" class="rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm text-slate-900 dark:text-white focus:border-bial-teal focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900 transition">
+              <option value="">All Departments</option>${DEPARTMENTS.map(d => `<option>${d}</option>`).join('')}
+            </select>
+          </div>
+          <div id="internsResults" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </div>`; }
+
+    function internCard(i, idx) { const isActive = i.status === 'active'; const initials = i.name.split(' ').map(n => n[0])
+        .join('').toUpperCase(); return `<div onclick="openInternProfile('${i.id}')" class="stat-card card-hover cursor-pointer rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 animate-scale-in" style="animation-delay:${idx * 60}ms">
+          <div class="flex items-start justify-between mb-4">
+            <div class="flex items-center gap-3 min-w-0 flex-1">
+              <div class="avatar-ring shrink-0"><div class="w-12 h-12 rounded-[0.7rem] bg-white dark:bg-slate-900 flex items-center justify-center text-slate-900 dark:text-white font-bold">${initials}</div></div>
+              <div class="min-w-0 flex-1"><h3 class="font-bold text-slate-900 dark:text-white clickable-name truncate">${escapeHtml(i.name)}</h3><p class="text-sm text-slate-500 dark:text-slate-400 truncate">${escapeHtml(i.college)}</p></div>
+            </div>
+            <span class="px-3 py-1 rounded-lg text-xs font-semibold border shrink-0 ml-2 ${badgeStyle('dept', i.department)}">${i.department}</span>
+          </div>
+          <div class="flex items-center gap-2 mb-3">
+            <span class="relative flex h-2 w-2 shrink-0"><span class="w-2 h-2 rounded-full ${isActive ? 'bg-emerald-500 pulse-dot' : 'bg-slate-400'}"></span></span>
+            <span class="text-xs font-semibold ${isActive ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-500 dark:text-slate-400'}">${isActive ? 'Currently interning' : 'Completed internship'}</span>
+          </div>
+          ${i.bio ? `<p class="text-sm text-slate-600 dark:text-slate-300 mb-4 italic line-clamp-2">"${escapeHtml(i.bio)}"</p>` : ''}
+          <div class="space-y-2 text-sm text-slate-600 dark:text-slate-300">
+            <div><span class="font-medium text-slate-900 dark:text-white">Mentor:</span> ${escapeHtml(i.mentor)}</div>
+            <div><span class="font-medium text-slate-900 dark:text-white">Duration:</span> ${fmtDate(i.startDate)} - ${fmtDate(i.endDate)}</div>
+          </div>
+          ${i.skills?.length ? `<div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-wrap gap-1.5">${i.skills.slice(0, 4).map(s => `<span class="rounded-lg bg-slate-100 dark:bg-slate-800 px-2.5 py-1 text-xs text-slate-600 dark:text-slate-400">${escapeHtml(s)}</span>`).join('')}</div>` : ''}
+          <div class="mt-4 text-xs font-semibold text-bial-teal flex items-center gap-1">View profile <span>&#8594;</span></div>
+        </div>`; }
+
+    function renderInterns() { const el = document.getElementById('internsResults'); if (!el) return; let list = db
+        .getActiveInterns().filter(i => currentInternTab === 'active' ? i.status === 'active' : i.status !== 'active'); if (
+        currentInternDept) list = list.filter(i => i.department === currentInternDept);
+      el.innerHTML = list.length === 0 ? `<div class="col-span-full text-center py-20"><p class="text-slate-500 dark:text-slate-400 text-lg">No ${currentInternTab === 'active' ? 'active' : 'past'} interns${currentInternDept ? ' in ' + currentInternDept : ''}</p></div>` :
+        list.map((i, idx) => internCard(i, idx)).join(''); }
+
+    function positionThumb() { const activeBtn = document.getElementById(currentInternTab === 'active' ? 'tab-active' :
+        'tab-past'); const thumb = document.getElementById('internTabThumb'); if (!activeBtn || !thumb) return;
+      thumb.style.left = activeBtn.offsetLeft + 'px';
+      thumb.style.width = activeBtn.offsetWidth + 'px';
+      document.querySelectorAll('#tab-active, #tab-past').forEach(b => { b.classList.toggle('text-white', b.id === `tab-${currentInternTab}`);
+        b.classList.toggle('dark:text-slate-900', b.id === `tab-${currentInternTab}`);
+        b.classList.toggle('text-slate-600', b.id !== `tab-${currentInternTab}`);
+        b.classList.toggle('dark:text-slate-400', b.id !== `tab-${currentInternTab}`); }); }
+
+    function switchInternTab(tab) { currentInternTab = tab;
+      positionThumb();
+      renderInterns(); }
+
+    function filterInternsByDept(dept) { currentInternDept = dept;
+      renderInterns(); }
+
+    function bindInterns() { positionThumb();
+      renderInterns(); }
+
+    function openInternProfile(id) { const i = db.getActiveInterns().find(x => x.id === id); if (!i) return; const isActive = i
+        .status === 'active'; const initials = i.name.split(' ').map(n => n[0]).join('').toUpperCase(); const start = new Date(i
+          .startDate),
+        end = new Date(i.endDate),
+        now = new Date(); let pct = ((now - start) / (end - start)) * 100;
+      pct = isNaN(pct) ? 0 : Math.max(0, Math.min(100, pct)); const overlay = document.createElement('div');
+      overlay.id = 'internModalOverlay';
+      overlay.className = 'fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-900/70 modal-backdrop animate-fade-in';
+      overlay.addEventListener('click', (e) => { if (e.target === overlay) closeInternProfile(); });
+      overlay.innerHTML = `<div class="w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl animate-scale-in">
+        <div class="relative bg-gradient-to-br from-bial-slate via-bial-teal-dark to-bial-slate rounded-t-3xl px-6 pt-6 pb-20 text-white overflow-hidden">
+          <button onclick="closeInternProfile()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition z-10">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+          <span class="relative px-3 py-1 rounded-lg text-xs font-semibold border ${badgeStyle('dept', i.department)} bg-white/90 text-slate-900">${i.department}</span>
+        </div>
+        <div class="px-6 -mt-16 pb-8">
+          <div class="avatar-ring w-24 h-24 shadow-xl mb-4"><div class="w-full h-full rounded-[0.9rem] bg-white dark:bg-slate-900 flex items-center justify-center text-2xl font-black text-slate-900 dark:text-white">${initials}</div></div>
+          <div class="mb-1"><div class="flex items-center gap-2 flex-wrap"><h2 class="text-2xl font-black text-slate-900 dark:text-white break-words max-w-full">${escapeHtml(i.name)}</h2><span class="w-3 h-3 rounded-full shrink-0 ${isActive ? 'bg-emerald-500' : 'bg-slate-400'}"></span></div><p class="text-sm font-semibold ${isActive ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-500 dark:text-slate-400'}">${isActive ? 'Currently interning' : 'Completed internship'}</p></div>
+          ${i.bio ? `<p class="mt-4 text-sm text-slate-600 dark:text-slate-300 italic border-l-2 border-bial-teal pl-4">"${escapeHtml(i.bio)}"</p>` : ''}
+          <div class="mt-6 grid grid-cols-2 gap-4 text-sm">
+            <div class="rounded-xl bg-slate-50 dark:bg-slate-800/50 p-3"><div class="text-slate-500 dark:text-slate-400 text-xs">Email</div><div class="font-semibold text-slate-900 dark:text-white truncate">${escapeHtml(i.email || '-')}</div></div>
+            <div class="rounded-xl bg-slate-50 dark:bg-slate-800/50 p-3"><div class="text-slate-500 dark:text-slate-400 text-xs">College</div><div class="font-semibold text-slate-900 dark:text-white truncate">${escapeHtml(i.college || '-')}</div></div>
+            <div class="rounded-xl bg-slate-50 dark:bg-slate-800/50 p-3"><div class="text-slate-500 dark:text-slate-400 text-xs">Year</div><div class="font-semibold text-slate-900 dark:text-white">${escapeHtml(i.year || '-')}</div></div>
+            <div class="rounded-xl bg-slate-50 dark:bg-slate-800/50 p-3"><div class="text-slate-500 dark:text-slate-400 text-xs">Mentor</div><div class="font-semibold text-slate-900 dark:text-white truncate">${escapeHtml(i.mentor || '-')}</div></div>
+          </div>
+          <div class="mt-6"><div class="flex justify-between text-xs font-semibold text-slate-500 dark:text-slate-400 mb-2"><span>${fmtDate(i.startDate)}</span><span>${fmtDate(i.endDate)}</span></div><div class="w-full h-2 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden"><div class="h-full rounded-full bg-gradient-to-r from-bial-teal to-bial-amber" style="width:${pct}%"></div></div><div class="text-center text-xs text-slate-500 dark:text-slate-400 mt-2">${isActive ? Math.round(pct) + '% through internship' : 'Internship complete'}</div></div>
+          ${i.skills?.length ? `<div class="mt-6"><h3 class="text-sm font-bold text-slate-900 dark:text-white mb-2">Skills</h3><div class="flex flex-wrap gap-2">${i.skills.map(s => `<span class="rounded-lg bg-teal-50 dark:bg-teal-900/20 px-3 py-1.5 text-xs font-medium text-bial-teal">${escapeHtml(s)}</span>`).join('')}</div></div>` : ''}
+          ${i.projects?.length ? `<div class="mt-6"><h3 class="text-sm font-bold text-slate-900 dark:text-white mb-2">Projects</h3><div class="space-y-2">${i.projects.map(p => `<div class="rounded-xl bg-slate-50 dark:bg-slate-800/50 px-4 py-2.5 text-sm font-medium text-slate-700 dark:text-slate-300">${escapeHtml(p)}</div>`).join('')}</div></div>` : ''}
+        </div>
+      </div>`;
+      document.body.appendChild(overlay);
+      document.addEventListener('keydown', escCloseIntern);
+    }
+
+    function escCloseIntern(e) { if (e.key === 'Escape') closeInternProfile(); }
+
+    function closeInternProfile() { document.getElementById('internModalOverlay')?.remove();
+      document.removeEventListener('keydown', escCloseIntern); }
+
+    function pageLogin() { return `<div class="relative min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-slate-50 via-white to-teal-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 overflow-hidden">
+        <div class="absolute -top-24 -left-24 w-96 h-96 bg-bial-teal/20 rounded-full blur-3xl animate-float-slow"></div>
+        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-bial-amber/20 rounded-full blur-3xl animate-float"></div>
+        <div class="absolute top-4 right-4"><button onclick="toggleTheme()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400">${document.documentElement.className === 'dark' ? '&#9728;' : '&#9790;'}</button></div>
+        <div class="relative w-full max-w-md animate-fade-in">
+          <div class="text-center mb-8"><svg class="w-16 h-16 mx-auto text-bial-teal animate-float" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg><h1 class="mt-4 text-4xl font-black text-slate-900 dark:text-white tracking-tight">BIAL<span class="text-bial-teal">.</span></h1><p class="mt-2 text-slate-500 dark:text-slate-400">Internship Program Portal</p></div>
+          <div class="rounded-2xl bg-white dark:bg-slate-900 p-8 shadow-xl border border-slate-200 dark:border-slate-800">
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Welcome back</h2>
+            <div id="formError" class="mb-4 hidden rounded-xl bg-red-50 dark:bg-red-900/20 px-4 py-3 text-sm text-red-700 dark:text-red-400 border border-red-200 dark:border-red-800"></div>
+            <form id="loginForm" class="space-y-4">
+              <div><label class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">Email</label><input type="email" name="email" required class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-bial-teal focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900 transition" placeholder="you@example.com" /></div>
+              <div><label class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">Password</label><input type="password" name="password" required class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-bial-teal focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900 transition" placeholder="Enter password" /></div>
+              <button type="submit" class="glow-btn w-full rounded-xl bg-bial-teal text-white py-3.5 text-sm font-bold hover:bg-bial-teal-dark transition shadow-lg">Sign In</button>
+            </form>
+            <p class="mt-6 text-center text-sm text-slate-500 dark:text-slate-400">New applicant? <a href="#/signup" class="font-bold text-bial-teal hover:text-bial-teal-dark">Create Account</a></p>
+          </div>
+          <p class="mt-4 text-center text-xs text-slate-400 dark:text-slate-500">Admin: admin@bial.aero / admin123</p>
+        </div>
+      </div>`; }
+
+    function bindLogin() { document.getElementById('loginForm').addEventListener('submit', (e) => { e.preventDefault(); const fd =
+          new FormData(e.target); const email = fd.get('email').trim().toLowerCase(); const user = db.getUsers().find(u => u
+            .email === email); if (!user || user.password !== simpleHash(fd.get('password'))) { const err = document
+              .getElementById('formError');
+          err.textContent = 'Invalid credentials';
+          err.classList.remove('hidden'); return; }
+        db.setSession({ userId: user.id });
+        location.hash = user.role === 'admin' ? '#/admin' : '#/home'; }); }
+
+    function pageSignup() { return `<div class="relative min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-slate-50 via-white to-teal-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 overflow-hidden">
+        <div class="absolute -top-24 -right-24 w-96 h-96 bg-bial-teal/20 rounded-full blur-3xl animate-float-slow"></div>
+        <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-bial-amber/20 rounded-full blur-3xl animate-float"></div>
+        <div class="absolute top-4 right-4"><button onclick="toggleTheme()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400">${document.documentElement.className === 'dark' ? '&#9728;' : '&#9790;'}</button></div>
+        <div class="relative w-full max-w-xl animate-fade-in">
+          <div class="text-center mb-8"><svg class="w-16 h-16 mx-auto text-bial-teal animate-float" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg><h1 class="mt-4 text-4xl font-black text-slate-900 dark:text-white">Join BIAL</h1><p class="mt-2 text-slate-500 dark:text-slate-400">Create your internship profile</p></div>
+          <div class="rounded-2xl bg-white dark:bg-slate-900 p-8 shadow-xl border border-slate-200 dark:border-slate-800">
+            <div id="formError" class="mb-4 hidden rounded-xl bg-red-50 dark:bg-red-900/20 px-4 py-3 text-sm text-red-700 dark:text-red-400"></div>
+            <form id="signupForm" class="space-y-4">
+              <div class="grid grid-cols-2 gap-4"><div><label class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">Full Name *</label><input name="name" required class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-bial-teal focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900 transition" /></div><div><label class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">Email *</label><input type="email" name="email" required class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-bial-teal focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900 transition" /></div></div>
+              <div><label class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">Password *</label><input type="password" name="password" required minlength="6" class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-bial-teal focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900 transition" placeholder="Min 6 characters" /></div>
+              <div class="grid grid-cols-2 gap-4"><div><label class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">College *</label><input name="college" required class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-bial-teal focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900 transition" /></div><div><label class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">Year *</label><select name="year" required class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm text-slate-900 dark:text-white focus:border-bial-teal focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900 transition"><option value="">Select</option><option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>Final Year</option><option>M.Tech/MBA</option></select></div></div>
+              <div><label class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">Skills</label><input name="skills" class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-bial-teal focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900 transition" placeholder="Python, React, SQL" /></div>
+              <div><label class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">Projects</label><input name="projects" class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-bial-teal focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900 transition" placeholder="ML Model, Web App" /></div>
+              <div><label class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">Bio</label><textarea name="bio" rows="2" class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-bial-teal focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900 transition" placeholder="Tell us about yourself..."></textarea></div>
+              <button type="submit" class="glow-btn w-full rounded-xl bg-bial-teal text-white py-3.5 text-sm font-bold hover:bg-bial-teal-dark transition shadow-lg">Create Account</button>
+            </form>
+            <p class="mt-6 text-center text-sm text-slate-500 dark:text-slate-400">Already registered? <a href="#/login" class="font-bold text-bial-teal hover:text-bial-teal-dark">Sign In</a></p>
+          </div>
+        </div>
+      </div>`; }
+
+    function bindSignup() { document.getElementById('signupForm').addEventListener('submit', (e) => { e.preventDefault(); const fd =
+          new FormData(e.target); const email = fd.get('email').trim().toLowerCase(); if (db.getUsers().find(u => u.email ===
+            email)) { const err = document.getElementById('formError');
+          err.textContent = 'Email already registered';
+          err.classList.remove('hidden'); return; } const newUser = { id: uid(), name: fd.get('name').trim(), email,
+          password: simpleHash(fd.get('password')), role: 'student', college: fd.get('college').trim(), year: fd.get('year'),
+          skills: (fd.get('skills') || '').split(',').map(s => s.trim()).filter(Boolean), projects: (fd.get('projects') || '')
+            .split(',').map(s => s.trim()).filter(Boolean), bio: fd.get('bio').trim(), department: '',
+          createdAt: new Date().toISOString() }; const users = db.getUsers();
+        users.push(newUser);
+        db.saveUsers(users);
+        db.setSession({ userId: newUser.id });
+        showToast('Welcome to BIAL!');
+        location.hash = '#/home'; }); }
+
+    function pageAdminInternships() { const admin = requireRole('admin'); if (!admin) return ''; const list = [...db
+        .getInternships()].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)); return `${navbar()}
+        <div class="mx-auto max-w-7xl px-6 py-10">
+          <div class="flex items-center justify-between mb-8"><h1 class="text-4xl font-black text-slate-900 dark:text-white">Positions</h1><a href="#/admin/internships/create" class="rounded-xl bg-bial-teal text-white px-6 py-3 text-sm font-bold hover:bg-bial-teal-dark transition">+ New</a></div>
+          <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
+            <table class="w-full text-sm">
+              <thead class="bg-slate-50 dark:bg-slate-800/50"><tr><th class="px-6 py-4 text-left font-semibold text-slate-700 dark:text-slate-300">Title</th><th class="px-6 py-4 text-left font-semibold text-slate-700 dark:text-slate-300">Dept</th><th class="px-6 py-4 text-left font-semibold text-slate-700 dark:text-slate-300">Location</th><th class="px-6 py-4 text-left font-semibold text-slate-700 dark:text-slate-300">Deadline</th><th></th></tr></thead>
+              <tbody class="divide-y divide-slate-100 dark:divide-slate-800">${list.map(i => `<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30"><td class="px-6 py-4 font-medium text-slate-900 dark:text-white">${escapeHtml(i.title)}</td><td class="px-6 py-4"><span class="px-3 py-1 rounded-lg text-xs font-semibold border ${badgeStyle('dept', i.department)}">${i.department}</span></td><td class="px-6 py-4 text-slate-500 dark:text-slate-400">${escapeHtml(i.location)}</td><td class="px-6 py-4 text-slate-500 dark:text-slate-400">${fmtDate(i.lastDate)}</td><td class="px-6 py-4"><button onclick="deleteInternship('${i.id}')" class="text-bial-red text-xs font-semibold hover:underline">Delete</button></td></tr>`).join('')}</tbody>
+            </table>
+          </div>
+        </div>`; }
+
+    function deleteInternship(id) { if (confirm('Delete?')) { db.saveInternships(db.getInternships().filter(i => i.id !== id));
+        showToast('Deleted');
+        render(); } }
+
+    function pageAdminCreateInternship() { const admin = requireRole('admin'); if (!admin) return ''; const googleFormUrl = db
+        .getGoogleFormUrl(); return `${navbar()}
+        <div class="mx-auto max-w-3xl px-6 py-10">
+          <h1 class="text-4xl font-black text-slate-900 dark:text-white mb-8">New Position</h1>
+          <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8">
+            <form id="createForm" class="space-y-5">
+              <div><label class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">Department *</label><select name="department" required class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm text-slate-900 dark:text-white focus:border-bial-teal focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900 transition"><option value="">Select</option>${DEPARTMENTS.map(d => `<option>${d}</option>`).join('')}</select></div>
+              <div class="grid grid-cols-2 gap-4"><div><label class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">Title *</label><input name="title" required class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-bial-teal focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900 transition" /></div><div><label class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">Location *</label><input name="location" required class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-bial-teal focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900 transition" /></div></div>
+              <div><label class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">Description *</label><textarea name="description" required rows="4" class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-bial-teal focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900 transition"></textarea></div>
+              <div class="grid grid-cols-3 gap-4"><div><label class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">Duration *</label><input name="duration" required class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-bial-teal focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900 transition" /></div><div><label class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">Stipend</label><input name="stipend" class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-bial-teal focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900 transition" /></div><div><label class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">Skills *</label><input name="skills" required class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-bial-teal focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900 transition" /></div></div>
+              <div><label class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">Last Date *</label><input type="date" name="lastDate" required class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm text-slate-900 dark:text-white focus:border-bial-teal focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900 transition" /></div>
+              <div class="flex items-center gap-3"><input type="checkbox" name="googleFormRequired" id="googleFormRequired" class="w-5 h-5 rounded border-slate-300 text-bial-teal focus:ring-bial-teal" /><label for="googleFormRequired" class="text-sm font-semibold text-slate-700 dark:text-slate-300">Require Google Form submission</label></div>
+              ${!googleFormUrl ? `<div class="p-4 rounded-xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800"><p class="text-sm text-amber-800 dark:text-amber-300">No Google Form URL configured. <a href="#/admin/settings" class="font-bold underline">Set it up in Settings</a></p></div>` : ''}
+              <button type="submit" class="w-full rounded-xl bg-bial-teal text-white py-3.5 text-sm font-bold hover:bg-bial-teal-dark transition">Post Position</button>
+            </form>
+          </div>
+        </div>`; }
+
+    function bindAdminCreateInternship() { document.getElementById('createForm').addEventListener('submit', (e) => { e
+        .preventDefault(); const fd = new FormData(e.target); const list = db.getInternships();
+        list.push({ id: uid(), title: fd.get('title').trim(), department: fd.get('department'), description: fd.get(
+            'description').trim(), location: fd.get('location').trim(), duration: fd.get('duration').trim(), stipend: fd
+            .get('stipend').trim() || 'Unpaid', skills: (fd.get('skills') || '').split(',').map(s => s.trim()).filter(
+            Boolean), lastDate: fd.get('lastDate'), postedBy: requireRole('admin').id, createdAt: new Date()
+            .toISOString(), googleFormRequired: fd.get('googleFormRequired') === 'on' });
+        db.saveInternships(list);
+        showToast('Posted!');
+        location.hash = '#/admin/internships'; }); }
+
+    function pageAdminActiveInterns() { const admin = requireRole('admin'); if (!admin) return ''; return `${navbar()}
+        <div class="mx-auto max-w-7xl px-6 py-10">
+          <div class="flex items-center justify-between mb-8"><h1 class="text-4xl font-black text-slate-900 dark:text-white">Interns</h1><a href="#/admin/active-interns/add" class="glow-btn rounded-xl bg-bial-teal text-white px-6 py-3 text-sm font-bold hover:bg-bial-teal-dark transition">+ Add</a></div>
+          <div class="flex flex-wrap gap-3 mb-6">
+            <select id="activeDeptFilter" onchange="renderAdminActive()" class="rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm text-slate-900 dark:text-white focus:border-bial-teal focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900 transition"><option value="">All Depts</option>${DEPARTMENTS.map(d => `<option>${d}</option>`).join('')}</select>
+            <select id="activeStatusFilter" onchange="renderAdminActive()" class="rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm text-slate-900 dark:text-white focus:border-bial-teal focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900 transition"><option value="">All</option><option value="active">Active</option><option value="inactive">Past</option></select>
+          </div>
+          <div id="adminActiveTable"></div>
+        </div>`; }
+
+    function renderAdminActive() { const fd = document.getElementById('activeDeptFilter')?.value || ''; const fs = document
+        .getElementById('activeStatusFilter')?.value || ''; let list = db.getActiveInterns(); if (fd) list = list.filter(i => i
+          .department === fd); if (fs) list = list.filter(i => i.status === fs); const el = document.getElementById(
+        'adminActiveTable'); if (!el) return;
+      el.innerHTML = list.length === 0 ? `<p class="text-center py-16 text-slate-500 dark:text-slate-400">No interns</p>` :
+        `<div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
+          <table class="w-full text-sm">
+            <thead class="bg-slate-50 dark:bg-slate-800/50"><tr><th class="px-6 py-4 text-left font-semibold text-slate-700 dark:text-slate-300">Intern</th><th class="px-6 py-4 text-left font-semibold text-slate-700 dark:text-slate-300">Dept</th><th class="px-6 py-4 text-left font-semibold text-slate-700 dark:text-slate-300">College</th><th class="px-6 py-4 text-left font-semibold text-slate-700 dark:text-slate-300">Mentor</th><th class="px-6 py-4 text-left font-semibold text-slate-700 dark:text-slate-300">Duration</th><th class="px-6 py-4 text-left font-semibold text-slate-700 dark:text-slate-300">Status</th><th></th></tr></thead>
+            <tbody class="divide-y divide-slate-100 dark:divide-slate-800">${list.map(i => `<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30"><td class="px-6 py-4 font-medium text-slate-900 dark:text-white"><span onclick="openInternProfile('${i.id}')" class="clickable-name">${escapeHtml(i.name)}</span></td><td class="px-6 py-4"><span class="px-3 py-1 rounded-lg text-xs font-semibold border ${badgeStyle('dept', i.department)}">${i.department}</span></td><td class="px-6 py-4 text-slate-500 dark:text-slate-400">${escapeHtml(i.college)}</td><td class="px-6 py-4 text-slate-500 dark:text-slate-400">${escapeHtml(i.mentor)}</td><td class="px-6 py-4 text-xs text-slate-500 dark:text-slate-400">${fmtDate(i.startDate)} - ${fmtDate(i.endDate)}</td><td class="px-6 py-4"><span class="px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-wide ${i.status === 'active' ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400' : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'}">${i.status === 'active' ? 'Active' : 'Past'}</span></td><td class="px-6 py-4"><button onclick="toggleInternStatus('${i.id}')" class="text-xs ${i.status === 'active' ? 'text-bial-red' : 'text-bial-teal'} font-semibold hover:underline">${i.status === 'active' ? 'Mark Past' : 'Reactivate'}</button></td></tr>`).join('')}</tbody>
+          </table>
+        </div>`; }
+
+    function toggleInternStatus(id) { const list = db.getActiveInterns(); const i = list.find(x => x.id === id); if (i) { i
+          .status = i.status === 'active' ? 'inactive' : 'active';
+        db.saveActiveInterns(list);
+        showToast('Updated');
+        renderAdminActive(); } }
+
+    function bindAdminActiveInterns() { renderAdminActive(); }
+
+    function pageAdminAddIntern() { const admin = requireRole('admin'); if (!admin) return ''; return `${navbar()}
+        <div class="mx-auto max-w-3xl px-6 py-10">
+          <h1 class="text-4xl font-black text-slate-900 dark:text-white mb-8">Add Intern</h1>
+          <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8">
+            <form id="addInternForm" class="space-y-5">
+              <div class="grid grid-cols-2 gap-4"><div><label class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">Name *</label><input name="name" required class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-bial-teal focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900 transition" /></div><div><label class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">Email *</label><input type="email" name="email" required class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-bial-teal focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900 transition" /></div></div>
+              <div class="grid grid-cols-2 gap-4"><div><label class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">Dept *</label><select name="department" required class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm text-slate-900 dark:text-white focus:border-bial-teal focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900 transition"><option value="">Select</option>${DEPARTMENTS.map(d => `<option>${d}</option>`).join('')}</select></div><div><label class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">College *</label><input name="college" required class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-bial-teal focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900 transition" /></div></div>
+              <div class="grid grid-cols-2 gap-4"><div><label class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">Start *</label><input type="date" name="startDate" required class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm text-slate-900 dark:text-white focus:border-bial-teal focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900 transition" /></div><div><label class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">End *</label><input type="date" name="endDate" required class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm text-slate-900 dark:text-white focus:border-bial-teal focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900 transition" /></div></div>
+              <div><label class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">Mentor *</label><input name="mentor" required class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-bial-teal focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900 transition" /></div>
+              <div><label class="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">Skills</label><input name="skills" class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-bial-teal focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900 transition" /></div>
+              <button type="submit" class="w-full rounded-xl bg-bial-teal text-white py-3.5 text-sm font-bold hover:bg-bial-teal-dark transition">Add Intern</button>
+            </form>
+          </div>
+        </div>`; }
+
+    function bindAdminAddIntern() { document.getElementById('addInternForm').addEventListener('submit', (e) => { e
+        .preventDefault(); const fd = new FormData(e.target); const list = db.getActiveInterns();
+        list.push({ id: uid(), name: fd.get('name').trim(), email: fd.get('email').trim(), department: fd.get('department'),
+          college: fd.get('college').trim(), year: '', skills: (fd.get('skills') || '').split(',').map(s => s.trim())
+          .filter(Boolean), projects: [], startDate: fd.get('startDate'), endDate: fd.get('endDate'), mentor: fd.get(
+            'mentor').trim(), bio: '', status: 'active', createdAt: new Date().toISOString() });
+        db.saveActiveInterns(list);
+        showToast('Added!');
+        location.hash = '#/admin/active-interns'; }); }
+
+    // ----- Router -----
+    const routes = {
+      '#/login': { render: pageLogin, bind: bindLogin, public: true },
+      '#/signup': { render: pageSignup, bind: bindSignup, public: true },
+      '#/about': { render: pageAbout, public: true },
+      '#/home': { render: pageStudentHome, role: 'student' },
+      '#/positions': { render: pagePositions, bind: bindPositions, role: 'student' },
+      '#/applications': { render: pageStudentApplications, role: 'student' },
+      '#/interns': { render: pageInterns, bind: bindInterns, role: 'student' },
+      '#/profile': { render: pageStudentProfile, role: 'student' },
+      '#/admin': { render: pageAdminDashboard, role: 'admin' },
+      '#/admin/settings': { render: pageAdminSettings, role: 'admin' },
+      '#/admin/internships': { render: pageAdminInternships, role: 'admin' },
+      '#/admin/internships/create': { render: pageAdminCreateInternship, bind: bindAdminCreateInternship, role: 'admin' },
+      '#/admin/applications': { render: pageAdminApplications, bind: renderAdminApps, role: 'admin' },
+      '#/admin/active-interns': { render: pageAdminActiveInterns, bind: bindAdminActiveInterns, role: 'admin' },
+      '#/admin/active-interns/add': { render: pageAdminAddIntern, bind: bindAdminAddIntern, role: 'admin' }
+    };
+
+    function render() {
+      let hash = location.hash || '';
+      if (!hash || hash === '#/' || hash === '#/dashboard') {
+        const session = db.getSession();
+        if (!session) { location.hash = '#/login'; return; }
+        const user = db.getUsers().find(u => u.id === session.userId);
+        location.hash = user?.role === 'admin' ? '#/admin' : '#/home';
+        return;
+      }
+      hash = hash.split('?')[0];
+      const route = routes[hash];
+      const app = document.getElementById('app');
+      if (!route) { app.innerHTML =
+          `<div class="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950"><div class="text-center"><p class="text-slate-500 dark:text-slate-400 text-xl">Page not found</p><a href="#/login" class="mt-4 inline-block rounded-xl bg-bial-teal text-white px-6 py-3 text-sm font-bold hover:bg-bial-teal-dark transition">Go to Login</a></div></div>`;
+        return; }
+      if (!route.public) { const user = requireRole(route.role); if (!user) return; }
+      app.innerHTML = route.render();
+      if (route.bind) route.bind();
+    }
+
+    // Global functions
+    window.toggleTheme = toggleTheme;
+    window.render = render;
+    window.logout = logout;
+    window.openApplicationModal = openApplicationModal;
+    window.closeApplicationModal = closeApplicationModal;
+    window.filterByDepartment = filterByDepartment;
+    window.debounceSearch = debounceSearch;
+    window.deleteInternship = deleteInternship;
+    window.editStudentProfile = editStudentProfile;
+    window.updateAppStatus = updateAppStatus;
+    window.renderAdminApps = renderAdminApps;
+    window.renderAdminActive = renderAdminActive;
+    window.toggleInternStatus = toggleInternStatus;
+    window.switchInternTab = switchInternTab;
+    window.filterInternsByDept = filterInternsByDept;
+    window.openInternProfile = openInternProfile;
+    window.closeInternProfile = closeInternProfile;
+    window.saveGoogleFormUrl = saveGoogleFormUrl;
+    window.openApplicantProfile = openApplicantProfile;
+    window.closeApplicantProfile = closeApplicantProfile;
+    window.exportSubmissionsToExcel = exportSubmissionsToExcel;
+
+    window.addEventListener('hashchange', render);
+    window.addEventListener('DOMContentLoaded', render);
+  </script>
+  <script src="renderer.js"></script>
+</body>
+</html>
